@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import {useState, useMemo} from "react";
 import items from "./items.json";
 import "./App.css";
 
@@ -102,6 +102,7 @@ export default function App() {
     const [quantity, setQuantity] = useState<number>(1);
     const [marketPrice, setMarketPrice] = useState<number>(0);
     const [cart, setCart] = useState<CartEntry[]>([]);
+    const [includeMarketFee, setIncludeMarketFee] = useState<boolean>(false);
 
     const [level, setLevel] = useState<number>(100);
     const [vocation, setVocation] = useState<Vocation>("Knight/Monk");
@@ -121,18 +122,18 @@ export default function App() {
         if (!selectedItem || quantity <= 0 || marketPrice <= 0) return null;
 
         const totalOffer = marketPrice * quantity;
-        const marketFee = calcMarketFee(totalOffer);
+        const marketFee = includeMarketFee ? calcMarketFee(totalOffer) : 0;
         const totalCost = totalOffer + marketFee;
         const npcRevenue = selectedItem.npcPrice * quantity;
         const netProfit = npcRevenue - totalCost;
         const breakEven = Math.floor(
-            (selectedItem.npcPrice * quantity - MARKET_FEE_MIN) /
+            (selectedItem.npcPrice * quantity - (includeMarketFee ? MARKET_FEE_MIN : 0)) /
             quantity /
-            (1 + MARKET_FEE_RATE)
+            (1 + (includeMarketFee ? MARKET_FEE_RATE : 0))
         );
 
-        return { totalOffer, marketFee, totalCost, npcRevenue, netProfit, breakEven };
-    }, [selectedItem, quantity, marketPrice]);
+        return {totalOffer, marketFee, totalCost, npcRevenue, netProfit, breakEven};
+    }, [selectedItem, quantity, marketPrice, includeMarketFee]);
 
     const bulkSummary = useMemo<BulkSummary | null>(() => {
         if (cart.length === 0) return null;
@@ -268,8 +269,8 @@ export default function App() {
                                 <li key={item.id} onClick={() => handleSelect(item)}>
                                     <span className="item-name">{item.name}</span>
                                     <span className="item-npc">
-                    {item.npcName} — {formatGp(item.npcPrice)} — {formatWeight(item.weight)}
-                  </span>
+                                        {item.npcName} — {formatGp(item.npcPrice)} — {formatWeight(item.weight)}
+                                    </span>
                                 </li>
                             ))}
                         </ul>
@@ -278,7 +279,8 @@ export default function App() {
 
                 {selectedItem && (
                     <div className="item-tag">
-                        📦 <strong>{selectedItem.name}</strong> — NPC: {selectedItem.npcName} ({selectedItem.npcCity}) — Sells for{" "}
+                        📦 <strong>{selectedItem.name}</strong> — NPC: {selectedItem.npcName} ({selectedItem.npcCity}) —
+                        Sells for{" "}
                         <strong>{formatGp(selectedItem.npcPrice)}</strong> — Weight:{" "}
                         <strong>{formatWeight(selectedItem.weight)}</strong>
                     </div>
@@ -308,6 +310,15 @@ export default function App() {
                         />
                     </label>
                 </div>
+
+                <label className="checkbox-line">
+                    <input
+                        type="checkbox"
+                        checked={includeMarketFee}
+                        onChange={(e) => setIncludeMarketFee(e.target.checked)}
+                    />
+                    Include market fee
+                </label>
             </div>
 
             <div className="row">
@@ -318,7 +329,7 @@ export default function App() {
                             <span>Total Market Offer</span>
                             <span>{formatGp(result.totalOffer)}</span>
 
-                            <span>Market Fee (2%)</span>
+                            <span>Market Fee</span>
                             <span className="negative">− {formatGp(result.marketFee)}</span>
 
                             <span>Total Cost</span>
@@ -337,12 +348,12 @@ export default function App() {
                                 </>
                             )}
 
-                            <div className="divider" />
+                            <div className="divider"/>
 
                             <span className="bold">Net Profit</span>
                             <span className={`bold ${result.netProfit >= 0 ? "positive" : "negative"}`}>
-                {result.netProfit >= 0 ? "✅" : "❌"} {formatGp(result.netProfit)}
-              </span>
+                                {result.netProfit >= 0 ? "✅" : "❌"} {formatGp(result.netProfit)}
+                            </span>
 
                             <span>Break-even Price</span>
                             <span>{formatGp(result.breakEven)} / unit</span>
@@ -398,7 +409,7 @@ export default function App() {
                             </tbody>
                         </table>
 
-                        <div className="result-grid" style={{ marginTop: "1rem" }}>
+                        <div className="result-grid" style={{marginTop: "1rem"}}>
                             <span>Total Weight</span>
                             <span>{formatWeight(bulkSummary.totalWeight)}</span>
 
@@ -421,12 +432,12 @@ export default function App() {
                                 </>
                             )}
 
-                            <div className="divider" />
+                            <div className="divider"/>
 
                             <span className="bold">💰 Net Profit</span>
                             <span className={`bold ${bulkSummary.netProfit >= 0 ? "positive" : "negative"}`}>
-                {bulkSummary.netProfit >= 0 ? "✅" : "❌"} {formatGp(bulkSummary.netProfit)}
-              </span>
+                                {bulkSummary.netProfit >= 0 ? "✅" : "❌"} {formatGp(bulkSummary.netProfit)}
+                            </span>
                         </div>
                     </div>
                 )}
@@ -466,7 +477,7 @@ export default function App() {
                         </div>
                     </div>
 
-                    <div className="divider" style={{ margin: "0.75rem 0" }} />
+                    <div className="divider" style={{margin: "0.75rem 0"}}/>
 
                     <div className="cap-bp">
                         <label className="checkbox-line">
@@ -508,7 +519,7 @@ export default function App() {
                     </div>
 
                     {capacitySummary && (
-                        <div className="result-grid" style={{ marginTop: "0.75rem" }}>
+                        <div className="result-grid" style={{marginTop: "0.75rem"}}>
                             <span>Travels (only item weight)</span>
                             <span>{capacitySummary.travelsBare ?? "—"}</span>
 
@@ -520,20 +531,20 @@ export default function App() {
 
                             <span>Total Backpacks Weight</span>
                             <span>
-                {useBackpack ? formatWeight(capacitySummary.totalBpsWeight) : "Disabled"}
-              </span>
+                                {useBackpack ? formatWeight(capacitySummary.totalBpsWeight) : "Disabled"}
+                            </span>
 
                             <span>Total Weight with Backpacks</span>
                             <span>
-                {useBackpack
-                    ? formatWeight(capacitySummary.totalWeightWithBps)
-                    : "Disabled"}
-              </span>
+                                {useBackpack
+                                    ? formatWeight(capacitySummary.totalWeightWithBps)
+                                    : "Disabled"}
+                            </span>
 
                             <span>Travels (with backpacks)</span>
                             <span>
-                {useBackpack ? capacitySummary.travelsWithBp ?? "—" : "Disabled"}
-              </span>
+                                {useBackpack ? capacitySummary.travelsWithBp ?? "—" : "Disabled"}
+                            </span>
                         </div>
                     )}
                 </div>
