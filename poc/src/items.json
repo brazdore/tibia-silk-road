@@ -1,0 +1,330 @@
+[
+  {
+    "id": 1,
+    "name": "Crusader Helmet",
+    "weight": 52.0,
+    "npcPrice": 5000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 2,
+    "name": "Crusader Helmet",
+    "weight": 52.0,
+    "npcPrice": 4800,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 3,
+    "name": "Demon Helmet",
+    "weight": 29.0,
+    "npcPrice": 35000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 4,
+    "name": "Titan Axe",
+    "weight": 120.0,
+    "npcPrice": 12000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 5,
+    "name": "Titan Axe",
+    "weight": 120.0,
+    "npcPrice": 4000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 6,
+    "name": "Boots of Haste",
+    "weight": 7.5,
+    "npcPrice": 30000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 7,
+    "name": "Demon Legs",
+    "weight": 69.0,
+    "npcPrice": 30000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 8,
+    "name": "Piece of Hellfire Armor",
+    "weight": 85.0,
+    "npcPrice": 20000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 9,
+    "name": "Dragon Scale Mail",
+    "weight": 110.0,
+    "npcPrice": 40000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 10,
+    "name": "Fire Sword",
+    "weight": 23.0,
+    "npcPrice": 4000,
+    "npcName": "Nah'Bob",
+    "npcCity": "Ashta'daramai"
+  },
+  {
+    "id": 11,
+    "name": "Fire Sword",
+    "weight": 23.0,
+    "npcPrice": 1000,
+    "npcName": "Memech",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 12,
+    "name": "Fire Sword",
+    "weight": 23.0,
+    "npcPrice": 1000,
+    "npcName": "Gamel",
+    "npcCity": "Thais"
+  },
+  {
+    "id": 13,
+    "name": "Assassin Star",
+    "weight": 0.9,
+    "npcPrice": 1800,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 14,
+    "name": "Vampire Shield",
+    "weight": 40.0,
+    "npcPrice": 25000,
+    "npcName": "Rashid",
+    "npcCity": "Ankrahmun"
+  },
+  {
+    "id": 15,
+    "name": "Vampire Shield",
+    "weight": 40.0,
+    "npcPrice": 15000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 16,
+    "name": "Plate Armor",
+    "weight": 120.0,
+    "npcPrice": 400,
+    "npcName": "Thais Armor Shop",
+    "npcCity": "Thais"
+  },
+  {
+    "id": 17,
+    "name": "Steel Helmet",
+    "weight": 30.0,
+    "npcPrice": 290,
+    "npcName": "Thais Armor Shop",
+    "npcCity": "Thais"
+  },
+  {
+    "id": 18,
+    "name": "Giant Sword",
+    "weight": 130.0,
+    "npcPrice": 17000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 19,
+    "name": "Knight Armor",
+    "weight": 120.0,
+    "npcPrice": 5000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 20,
+    "name": "Knight Legs",
+    "weight": 100.0,
+    "npcPrice": 5000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 21,
+    "name": "Tower Shield",
+    "weight": 82.0,
+    "npcPrice": 8000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 22,
+    "name": "Warrior Helmet",
+    "weight": 46.0,
+    "npcPrice": 5000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 23,
+    "name": "Serpent Sword",
+    "weight": 44.0,
+    "npcPrice": 900,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 24,
+    "name": "Dark Armor",
+    "weight": 95.0,
+    "npcPrice": 400,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 25,
+    "name": "Dark Helmet",
+    "weight": 38.0,
+    "npcPrice": 250,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 26,
+    "name": "Ancient Shield",
+    "weight": 61.0,
+    "npcPrice": 900,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 27,
+    "name": "Black Shield",
+    "weight": 69.0,
+    "npcPrice": 800,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 28,
+    "name": "Bonebreaker",
+    "weight": 42.0,
+    "npcPrice": 10000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 29,
+    "name": "Dragon Hammer",
+    "weight": 42.0,
+    "npcPrice": 2000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 30,
+    "name": "Dreaded Cleaver",
+    "weight": 48.0,
+    "npcPrice": 15000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 31,
+    "name": "Energy Knight Axe",
+    "weight": 120.0,
+    "npcPrice": 2000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 32,
+    "name": "Fiery Knight Axe",
+    "weight": 120.0,
+    "npcPrice": 2000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 33,
+    "name": "Icy Knight Axe",
+    "weight": 120.0,
+    "npcPrice": 2000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 34,
+    "name": "Knight Axe",
+    "weight": 85.0,
+    "npcPrice": 2000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 35,
+    "name": "Mystic Turban",
+    "weight": 27.0,
+    "npcPrice": 150,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 36,
+    "name": "Onyx Flail",
+    "weight": 50.0,
+    "npcPrice": 22000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 37,
+    "name": "Ornamented Axe",
+    "weight": 42.0,
+    "npcPrice": 20000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 38,
+    "name": "Poison Dagger",
+    "weight": 9.0,
+    "npcPrice": 50,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 39,
+    "name": "Scimitar",
+    "weight": 29.0,
+    "npcPrice": 150,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 40,
+    "name": "Skull Staff",
+    "weight": 28.0,
+    "npcPrice": 6000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 41,
+    "name": "Strange Helmet",
+    "weight": 27.0,
+    "npcPrice": 500,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
+  }
+]

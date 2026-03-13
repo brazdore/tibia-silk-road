@@ -1,0 +1,188 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0f0f0f;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+header { text-align: center; margin-bottom: 0.5rem; }
+header h1 { font-size: 2rem; color: #f0c040; }
+.subtitle { color: #888; font-size: 0.9rem; margin-top: 0.25rem; }
+
+.card {
+  background: #1a1a1a;
+  border: 1px solid #2e2e2e;
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.card h2 { font-size: 1rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.search-wrapper { position: relative; }
+
+input[type="text"], input[type="number"] {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 0.6rem 0.85rem;
+  color: #e0e0e0;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus { border-color: #f0c040; }
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 6px;
+  list-style: none;
+  z-index: 10;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.dropdown li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.85rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.15s;
+}
+
+.dropdown li:hover { background: #2a2a2a; }
+.item-npc { font-size: 0.8rem; color: #888; }
+
+.item-tag {
+  background: #222;
+  border-radius: 6px;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.inputs { display: flex; gap: 1rem; }
+.inputs label { flex: 1; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; color: #aaa; }
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.divider { grid-column: 1 / -1; height: 1px; background: #2e2e2e; margin: 0.25rem 0; }
+.positive { color: #4caf50; }
+.negative { color: #f44336; }
+.bold { font-weight: 700; font-size: 1.05rem; }
+
+.btn-add {
+  width: 100%;
+  padding: 0.7rem;
+  background: #f0c040;
+  color: #000;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-add:hover { background: #e0b030; }
+
+.cart-header { display: flex; justify-content: space-between; align-items: center; }
+.btn-clear { background: none; border: 1px solid #555; color: #aaa; padding: 0.3rem 0.7rem; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+.btn-clear:hover { border-color: #f44336; color: #f44336; }
+
+.cart-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.cart-table th { text-align: left; color: #888; font-weight: 600; padding: 0.4rem 0.5rem; border-bottom: 1px solid #2e2e2e; }
+.cart-table td { padding: 0.5rem 0.5rem; border-bottom: 1px solid #1e1e1e; }
+
+.btn-remove { background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.5; transition: opacity 0.2s; }
+.btn-remove:hover { opacity: 1; }
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .row > .card {
+    flex: 1;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .row > .card {
+    flex: 1;
+  }
+}
+
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem 1rem;
+  align-items: center;
+}
+
+.cap-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.cap-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.cap-bp {
+  margin-top: 0.5rem;
+}
+
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
