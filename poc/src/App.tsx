@@ -1,6 +1,5 @@
 import {useState, useMemo} from "react";
 import items from "./items.json";
-import "./App.css";
 
 const MARKET_FEE_RATE = 0.02;
 const MARKET_FEE_MIN = 20;
@@ -249,7 +248,7 @@ export default function App() {
     return (
         <div className="container">
             <header>
-                <h1>🐪 Tibia Silk Road</h1>
+                <h1 className="text-3xl font-bold underline">🐪 Tibia Silk Road</h1>
                 <p className="subtitle">Merchant Market & NPC Profit Tracker</p>
             </header>
 
