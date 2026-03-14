@@ -326,5 +326,13 @@
     "npcPrice": 500,
     "npcName": "Alesar",
     "npcCity": "Mal'ouquah"
+  },
+  {
+    "id": 42,
+    "name": "Fire Axe",
+    "weight": 40.0,
+    "npcPrice": 8000,
+    "npcName": "Alesar",
+    "npcCity": "Mal'ouquah"
   }
 ]

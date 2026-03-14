@@ -84,7 +84,8 @@ The project is intentionally simple and focused on fast feedback, clear UI, and 
 - **React** for UI rendering.
 - **TypeScript** for type safety.
 - **Vite** for local development and production build.
-- **CSS** for styling.
+- **Tailwind CSS** is a utility-first CSS framework used to build and customize the interface directly in the markup.
+- **CSS** animations and custom theming for dark mode transitions.
 
 ### Data
 
@@ -103,7 +104,7 @@ The project is intentionally simple and focused on fast feedback, clear UI, and 
 
 ### In Use
 
-![Full Page](./docs/img.png)
+![Full Page](./docs/img_1.png)
 
 ## How It Works
 
