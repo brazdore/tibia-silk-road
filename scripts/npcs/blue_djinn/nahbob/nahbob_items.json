@@ -1,0 +1,182 @@
+{
+  "npcName": "Nah'Bob",
+  "items": [
+    {
+      "name": "Boots of Haste",
+      "npcPrice": 30000,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Royal Helmet",
+      "npcPrice": 30000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Queen's Sceptre",
+      "npcPrice": 20000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Butcher's Axe",
+      "npcPrice": 18000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Phoenix Shield",
+      "npcPrice": 16000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Thaian Sword",
+      "npcPrice": 16000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Crown Armor",
+      "npcPrice": 12000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Crown Legs",
+      "npcPrice": 12000,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Blue Robe",
+      "npcPrice": 10000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Shadow Sceptre",
+      "npcPrice": 10000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Dragon Lance",
+      "npcPrice": 9000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Crown Shield",
+      "npcPrice": 8000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Fire Axe",
+      "npcPrice": 8000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Crusader Helmet",
+      "npcPrice": 6000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Angelic Axe",
+      "npcPrice": 5000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Dragon Shield",
+      "npcPrice": 4000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Fire Sword",
+      "npcPrice": 4000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Glorious Axe",
+      "npcPrice": 3000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Crown Helmet",
+      "npcPrice": 2500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Guardian Shield",
+      "npcPrice": 2000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Bonelord Shield",
+      "npcPrice": 1200,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Earth War Hammer",
+      "npcPrice": 1200,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Energy War Hammer",
+      "npcPrice": 1200,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Fiery War Hammer",
+      "npcPrice": 1200,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Icy War Hammer",
+      "npcPrice": 1200,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "War Hammer",
+      "npcPrice": 1200,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Earth Spike Sword",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Energy Spike Sword",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Fiery Spike Sword",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Ice Rapier",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Icy Spike Sword",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Spike Sword",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Noble Armor",
+      "npcPrice": 900,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Broadsword",
+      "npcPrice": 500,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Obsidian Lance",
+      "npcPrice": 500,
+      "itemType": "Weapon"
+    }
+  ],
+  "totalItems": 35,
+  "totalValue": 240600
+}

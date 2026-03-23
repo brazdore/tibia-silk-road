@@ -1,0 +1,792 @@
+{
+  "npcName": "Rashid",
+  "items": [
+    {
+      "name": "Magic Plate Armor",
+      "npcPrice": 90000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Divine Plate",
+      "npcPrice": 55000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Cobra Crown",
+      "npcPrice": 50000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Heavy Mace",
+      "npcPrice": 50000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Mastermind Shield",
+      "npcPrice": 50000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Rift Shield",
+      "npcPrice": 50000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Rift Bow",
+      "npcPrice": 45000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Rift Crossbow",
+      "npcPrice": 45000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Ruthless Axe",
+      "npcPrice": 45000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Berserker",
+      "npcPrice": 40000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Blessed Sceptre",
+      "npcPrice": 40000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Chain Bolter",
+      "npcPrice": 40000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Dragon Scale Mail",
+      "npcPrice": 40000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Royal Axe",
+      "npcPrice": 40000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Skull Helmet",
+      "npcPrice": 40000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "The Justice Seeker",
+      "npcPrice": 40000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Demonrage Sword",
+      "npcPrice": 36000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Crystal Crossbow",
+      "npcPrice": 35000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Mycological Bow",
+      "npcPrice": 35000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Nightmare Blade",
+      "npcPrice": 35000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Tempest Shield",
+      "npcPrice": 35000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Demonbone Amulet",
+      "npcPrice": 32000,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Cranial Basher",
+      "npcPrice": 30000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Demon Shield",
+      "npcPrice": 30000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Dwarven Armor",
+      "npcPrice": 30000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Golden Legs",
+      "npcPrice": 30000,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Hammer of Wrath",
+      "npcPrice": 30000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Heroic Axe",
+      "npcPrice": 30000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Mystic Blade",
+      "npcPrice": 30000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Rift Lance",
+      "npcPrice": 30000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Ring of the Sky",
+      "npcPrice": 30000,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Steel Boots",
+      "npcPrice": 30000,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Vile Axe",
+      "npcPrice": 30000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Composite Hornbow",
+      "npcPrice": 25000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Jade Hammer",
+      "npcPrice": 25000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Relic Sword",
+      "npcPrice": 25000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Pharaoh Sword",
+      "npcPrice": 23000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Abyss Hammer",
+      "npcPrice": 20000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Assassin Dagger",
+      "npcPrice": 20000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Golden Armor",
+      "npcPrice": 20000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Skullcracker Armor",
+      "npcPrice": 18000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Crystalline Armor",
+      "npcPrice": 16000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Lavos Armor",
+      "npcPrice": 16000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Swamplair Armor",
+      "npcPrice": 16000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Djinn Blade",
+      "npcPrice": 15000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Dragon Slayer",
+      "npcPrice": 15000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Oriental Shoes",
+      "npcPrice": 15000,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Paladin Armor",
+      "npcPrice": 15000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Crystal Mace",
+      "npcPrice": 12000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Mercenary Sword",
+      "npcPrice": 12000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "War Axe",
+      "npcPrice": 12000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Glacier Kilt",
+      "npcPrice": 11000,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Glacier Robe",
+      "npcPrice": 11000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Guardian Halberd",
+      "npcPrice": 11000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Lightning Legs",
+      "npcPrice": 11000,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Lightning Robe",
+      "npcPrice": 11000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Magma Coat",
+      "npcPrice": 11000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Magma Legs",
+      "npcPrice": 11000,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Terra Legs",
+      "npcPrice": 11000,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Terra Mantle",
+      "npcPrice": 11000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Dreaded Cleaver",
+      "npcPrice": 10000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Noble Axe",
+      "npcPrice": 10000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Chaos Mace",
+      "npcPrice": 9000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Medusa Shield",
+      "npcPrice": 9000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Amber Staff",
+      "npcPrice": 8000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Epee",
+      "npcPrice": 8000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Gold Ring",
+      "npcPrice": 8000,
+      "itemType": "Ring"
+    },
+    {
+      "name": "War Horn",
+      "npcPrice": 8000,
+      "itemType": "Other"
+    },
+    {
+      "name": "Bonelord Helmet",
+      "npcPrice": 7500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Buckle",
+      "npcPrice": 7000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Sapphire Hammer",
+      "npcPrice": 7000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Blacksteel Sword",
+      "npcPrice": 6000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Headchopper",
+      "npcPrice": 6000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Mammoth Fur Cape",
+      "npcPrice": 6000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Orcish Maul",
+      "npcPrice": 6000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Castle Shield",
+      "npcPrice": 5000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Lunar Staff",
+      "npcPrice": 5000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Spiked Squelcher",
+      "npcPrice": 5000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Witch Hat",
+      "npcPrice": 5000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Goo Shell",
+      "npcPrice": 4000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Pair of Iron Fists",
+      "npcPrice": 4000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Onyx Pendant",
+      "npcPrice": 3500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Diamond Sceptre",
+      "npcPrice": 3000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Dragonbone Staff",
+      "npcPrice": 3000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Griffin Shield",
+      "npcPrice": 3000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Hibiscus Dress",
+      "npcPrice": 3000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Leviathan's Amulet",
+      "npcPrice": 3000,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Pirate Boots",
+      "npcPrice": 3000,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Sacred Tree Amulet",
+      "npcPrice": 3000,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Shockwave Amulet",
+      "npcPrice": 3000,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Glacier Mask",
+      "npcPrice": 2500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Glacier Shoes",
+      "npcPrice": 2500,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Lightning Boots",
+      "npcPrice": 2500,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Lightning Headband",
+      "npcPrice": 2500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Magma Boots",
+      "npcPrice": 2500,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Magma Monocle",
+      "npcPrice": 2500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Platinum Amulet",
+      "npcPrice": 2500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Terra Boots",
+      "npcPrice": 2500,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Terra Hood",
+      "npcPrice": 2500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Elvish Bow",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Fur Boots",
+      "npcPrice": 2000,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Heavy Trident",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Helmet of the Lost",
+      "npcPrice": 2000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Naginata",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Patched Boots",
+      "npcPrice": 2000,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Ruby Necklace",
+      "npcPrice": 2000,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Scarab Shield",
+      "npcPrice": 2000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Albino Plate",
+      "npcPrice": 1500,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Beastslayer Axe",
+      "npcPrice": 1500,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Beetle Necklace",
+      "npcPrice": 1500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Brutetamer's Staff",
+      "npcPrice": 1500,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Glacier Amulet",
+      "npcPrice": 1500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Lightning Pendant",
+      "npcPrice": 1500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Magma Amulet",
+      "npcPrice": 1500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Norse Shield",
+      "npcPrice": 1500,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Terra Amulet",
+      "npcPrice": 1500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Wyvern Fang",
+      "npcPrice": 1500,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Crocodile Boots",
+      "npcPrice": 1000,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Daramian Waraxe",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Death Ring",
+      "npcPrice": 1000,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Devil Helmet",
+      "npcPrice": 1000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Flower Dress",
+      "npcPrice": 1000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Furry Club",
+      "npcPrice": 1000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Leopard Armor",
+      "npcPrice": 1000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Model Ship",
+      "npcPrice": 1000,
+      "itemType": "Other"
+    },
+    {
+      "name": "Pharaoh Banner",
+      "npcPrice": 1000,
+      "itemType": "Other"
+    },
+    {
+      "name": "Pirate Hat",
+      "npcPrice": 1000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Mammoth Fur Shorts",
+      "npcPrice": 850,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Emerald Bangle",
+      "npcPrice": 800,
+      "itemType": "Other"
+    },
+    {
+      "name": "Crystal Sword",
+      "npcPrice": 600,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Coconut Shoes",
+      "npcPrice": 500,
+      "itemType": "Boots"
+    },
+    {
+      "name": "Flower Wreath",
+      "npcPrice": 500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Hieroglyph Banner",
+      "npcPrice": 500,
+      "itemType": "Other"
+    },
+    {
+      "name": "Leaf Legs",
+      "npcPrice": 500,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Pirate Shirt",
+      "npcPrice": 500,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Pirate Voodoo Doll",
+      "npcPrice": 500,
+      "itemType": "Other"
+    },
+    {
+      "name": "Silver Dagger",
+      "npcPrice": 500,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Taurus Mace",
+      "npcPrice": 500,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Crystal Necklace",
+      "npcPrice": 400,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Dark Shield",
+      "npcPrice": 400,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Ragnir Helmet",
+      "npcPrice": 400,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Voodoo Doll",
+      "npcPrice": 400,
+      "itemType": "Other"
+    },
+    {
+      "name": "Horn",
+      "npcPrice": 300,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Light Shovel",
+      "npcPrice": 300,
+      "itemType": "Other"
+    },
+    {
+      "name": "Mammoth Whopper",
+      "npcPrice": 300,
+      "itemType": "Food"
+    },
+    {
+      "name": "Crystal Ring",
+      "npcPrice": 250,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Ancient Amulet",
+      "npcPrice": 200,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Doll",
+      "npcPrice": 200,
+      "itemType": "Other"
+    },
+    {
+      "name": "Krimhorn Helmet",
+      "npcPrice": 200,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Pirate Knee Breeches",
+      "npcPrice": 200,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Scarab Amulet",
+      "npcPrice": 200,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Bandana",
+      "npcPrice": 150,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Silver Brooch",
+      "npcPrice": 150,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Tortoise Shield",
+      "npcPrice": 150,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Daramian Mace",
+      "npcPrice": 110,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Heavy Machete",
+      "npcPrice": 90,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Bone Shield",
+      "npcPrice": 80,
+      "itemType": "Shield"
+    }
+  ],
+  "totalItems": 157,
+  "totalValue": 1962230
+}

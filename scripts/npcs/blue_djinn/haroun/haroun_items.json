@@ -1,0 +1,127 @@
+{
+  "npcName": "Haroun",
+  "items": [
+    {
+      "name": "Greater Garlic Necklace",
+      "npcPrice": 10000,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Wand of Defiance",
+      "npcPrice": 6500,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Wand of Everblazing",
+      "npcPrice": 6000,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Wand of Voodoo",
+      "npcPrice": 4400,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Wand of Starstorm",
+      "npcPrice": 3600,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Wand of Inferno",
+      "npcPrice": 3000,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Wand of Cosmic Energy",
+      "npcPrice": 2000,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Wand of Draconia",
+      "npcPrice": 1500,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Wand of Decay",
+      "npcPrice": 1000,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Orb",
+      "npcPrice": 750,
+      "itemType": "Other"
+    },
+    {
+      "name": "Stone Skin Amulet",
+      "npcPrice": 500,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Stealth Ring",
+      "npcPrice": 200,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Wand of Dragonbreath",
+      "npcPrice": 200,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Axe Ring",
+      "npcPrice": 100,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Club Ring",
+      "npcPrice": 100,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Elven Amulet",
+      "npcPrice": 100,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Mind Stone",
+      "npcPrice": 100,
+      "itemType": "Other"
+    },
+    {
+      "name": "Sword Ring",
+      "npcPrice": 100,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Wand of Vortex",
+      "npcPrice": 100,
+      "itemType": "Wand"
+    },
+    {
+      "name": "Bronze Amulet",
+      "npcPrice": 50,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Garlic Necklace",
+      "npcPrice": 50,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Life Crystal",
+      "npcPrice": 50,
+      "itemType": "Other"
+    },
+    {
+      "name": "Power Ring",
+      "npcPrice": 50,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Magic Light Wand",
+      "npcPrice": 35,
+      "itemType": "Other"
+    }
+  ],
+  "totalItems": 24,
+  "totalValue": 40485
+}

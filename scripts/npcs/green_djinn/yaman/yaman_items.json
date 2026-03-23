@@ -1,0 +1,117 @@
+{
+  "npcName": "Yaman",
+  "items": [
+    {
+      "name": "Glacial Rod",
+      "npcPrice": 6500,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Muck Rod",
+      "npcPrice": 6000,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Underworld Rod",
+      "npcPrice": 4400,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Springsprout Rod",
+      "npcPrice": 3600,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Hailstorm Rod",
+      "npcPrice": 3000,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Terra Rod",
+      "npcPrice": 2000,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Northwind Rod",
+      "npcPrice": 1500,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Necrotic Rod",
+      "npcPrice": 1000,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Might Ring",
+      "npcPrice": 250,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Moonlight Rod",
+      "npcPrice": 200,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Ankh",
+      "npcPrice": 100,
+      "itemType": "Other"
+    },
+    {
+      "name": "Dragon Necklace",
+      "npcPrice": 100,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Dwarven Ring",
+      "npcPrice": 100,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Energy Ring",
+      "npcPrice": 100,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Protection Amulet",
+      "npcPrice": 100,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Ring of Healing",
+      "npcPrice": 100,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Snakebite Rod",
+      "npcPrice": 100,
+      "itemType": "Rod"
+    },
+    {
+      "name": "Time Ring",
+      "npcPrice": 100,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Life Ring",
+      "npcPrice": 50,
+      "itemType": "Ring"
+    },
+    {
+      "name": "Mysterious Fetish",
+      "npcPrice": 50,
+      "itemType": "Other"
+    },
+    {
+      "name": "Silver Amulet",
+      "npcPrice": 50,
+      "itemType": "Amulet"
+    },
+    {
+      "name": "Strange Talisman",
+      "npcPrice": 30,
+      "itemType": "Amulet"
+    }
+  ],
+  "totalItems": 22,
+  "totalValue": 29430
+}
