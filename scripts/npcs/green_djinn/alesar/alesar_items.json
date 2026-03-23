@@ -1,0 +1,147 @@
+{
+  "npcName": "Alesar",
+  "items": [
+    {
+      "name": "Onyx Flail",
+      "npcPrice": 22000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Ornamented Axe",
+      "npcPrice": 20000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Giant Sword",
+      "npcPrice": 17000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Dreaded Cleaver",
+      "npcPrice": 15000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Vampire Shield",
+      "npcPrice": 15000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Bonebreaker",
+      "npcPrice": 10000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Haunted Blade",
+      "npcPrice": 8000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Tower Shield",
+      "npcPrice": 8000,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Skull Staff",
+      "npcPrice": 6000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Knight Armor",
+      "npcPrice": 5000,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Knight Legs",
+      "npcPrice": 5000,
+      "itemType": "Legs"
+    },
+    {
+      "name": "Warrior Helmet",
+      "npcPrice": 5000,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Titan Axe",
+      "npcPrice": 4000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Dragon Hammer",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Earth Knight Axe",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Energy Knight Axe",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Fiery Knight Axe",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Icy Knight Axe",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Knight Axe",
+      "npcPrice": 2000,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Ancient Shield",
+      "npcPrice": 900,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Serpent Sword",
+      "npcPrice": 900,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Black Shield",
+      "npcPrice": 800,
+      "itemType": "Shield"
+    },
+    {
+      "name": "Strange Helmet",
+      "npcPrice": 500,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Dark Armor",
+      "npcPrice": 400,
+      "itemType": "Armor"
+    },
+    {
+      "name": "Dark Helmet",
+      "npcPrice": 250,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Mystic Turban",
+      "npcPrice": 150,
+      "itemType": "Helmet"
+    },
+    {
+      "name": "Scimitar",
+      "npcPrice": 150,
+      "itemType": "Weapon"
+    },
+    {
+      "name": "Poison Dagger",
+      "npcPrice": 50,
+      "itemType": "Weapon"
+    }
+  ],
+  "totalItems": 28,
+  "totalValue": 156100
+}
