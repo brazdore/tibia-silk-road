@@ -14,33 +14,57 @@
       justify-content: center;
       background: #0f172a;
       color: #e5e7eb;
+      padding: 24px;
+      box-sizing: border-box;
     }
+
     .box {
       background: #020617;
       border-radius: 16px;
       padding: 24px 28px;
-      box-shadow: 0 20px 45px rgba(15,23,42,0.7);
-      max-width: 420px;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.7);
+      max-width: 560px;
       width: 100%;
       box-sizing: border-box;
     }
+
     h1 {
-      margin: 0 0 12px;
-      font-size: 1.25rem;
+      margin: 0 0 8px;
+      font-size: 1.35rem;
       text-align: center;
     }
+
     p {
       margin: 0 0 18px;
       font-size: 0.9rem;
       color: #9ca3af;
       text-align: center;
     }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
     form {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
-    input[type="text"] {
-      flex: 1;
+
+    input[type="text"],
+    select {
+      flex: 1 1 180px;
       padding: 10px 12px;
       border-radius: 9999px;
       border: 1px solid #4b5563;
@@ -48,14 +72,20 @@
       color: #e5e7eb;
       font-size: 0.95rem;
       outline: none;
+      min-width: 0;
+      box-sizing: border-box;
     }
+
     input[type="text"]::placeholder {
       color: #6b7280;
     }
-    input[type="text"]:focus {
+
+    input[type="text"]:focus,
+    select:focus {
       border-color: #38bdf8;
       box-shadow: 0 0 0 1px #38bdf8;
     }
+
     button {
       padding: 10px 16px;
       border-radius: 9999px;
@@ -67,43 +97,95 @@
       cursor: pointer;
       white-space: nowrap;
     }
+
     button:hover {
       background: #0ea5e9;
+    }
+
+    .hint {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #64748b;
     }
   </style>
 </head>
 <body>
   <div class="box">
     <h1>S3 File Search</h1>
-    <p>Type a path or filename and press Enter or click Go.</p>
+    <p>Search files directly or open item icons by type.</p>
 
-    <form id="search-form">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="example-folder/report.pdf"
-        autocomplete="off"
-      />
-      <button type="submit">Go</button>
-    </form>
+    <div class="section">
+      <div class="section-title">General search</div>
+      <form id="search-form">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="example-folder/report.pdf"
+          autocomplete="off"
+        />
+        <button type="submit">Go</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Icon search</div>
+      <form id="icon-form">
+        <select id="icon-type">
+          <option value="npc">npc</option>
+          <option value="weapon">weapon</option>
+          <option value="armor">armor</option>
+          <option value="wand">wand</option>
+          <option value="rod">rod</option>
+          <option value="shield">shield</option>
+          <option value="helmet">helmet</option>
+          <option value="legs">legs</option>
+          <option value="boots">boots</option>
+          <option value="amulet">amulet</option>
+          <option value="ring">ring</option>
+          <option value="other">other</option>
+        </select>
+
+        <input
+          type="text"
+          id="icon-input"
+          placeholder="Fire_Sword"
+          autocomplete="off"
+        />
+
+        <button type="submit">Open icon</button>
+      </form>
+      <div class="hint">Redirects to /icons/{item_type}/{item_name}.gif</div>
+    </div>
   </div>
 
   <script>
     (function () {
-      var form = document.getElementById("search-form");
-      var input = document.getElementById("search-input");
+      var searchForm = document.getElementById("search-form");
+      var searchInput = document.getElementById("search-input");
+      var iconForm = document.getElementById("icon-form");
+      var iconType = document.getElementById("icon-type");
+      var iconInput = document.getElementById("icon-input");
 
-      form.addEventListener("submit", function (event) {
+      searchForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        var value = (input.value || "").trim();
+        var value = (searchInput.value || "").trim();
         if (!value) return;
 
-        // Remove leading slashes so we don't end up with "//path"
         value = value.replace(/^\/+/, "");
-
-        // Redirect to "/{text-typed}"
         window.location.href = "/" + encodeURI(value);
+      });
+
+      iconForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var typeValue = (iconType.value || "other").trim().toLowerCase();
+        var itemValue = (iconInput.value || "").trim();
+
+        if (!itemValue) return;
+
+        window.location.href =
+          "/icons/" + encodeURIComponent(typeValue) + "/" + encodeURI(itemValue) + ".gif";
       });
     })();
   </script>
