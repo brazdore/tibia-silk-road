@@ -1,0 +1,7 @@
+2026-03-23 02:41:37,557 [INFO] Loaded file: tibiapal_deliveries.htm
+2026-03-23 02:41:37,558 [INFO] HTML length: 417011 chars
+2026-03-23 02:41:37,791 [INFO] Found 451 table rows
+2026-03-23 02:41:37,800 [INFO] Extracted 450 raw items
+2026-03-23 02:41:37,800 [INFO] Extracted 450 unique items
+2026-03-23 02:41:37,802 [INFO] Saved 450 items to output\tibiapal_delivery_items.txt
+2026-03-23 02:41:37,802 [INFO] Saved 450 items to output\tibiapal_delivery_items.csv
