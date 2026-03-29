@@ -1,28 +1,26 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '../../generated/prisma';
 import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
 
 @Injectable()
 export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
-  constructor() {
-    const adapter = new PrismaPg({
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
+  constructor(url?: string) {
+    const connectionString = url ?? process.env.DATABASE_URL!;
+    const pool = new pg.Pool({
+      connectionString,
+      ssl: url ? false : { rejectUnauthorized: false },
     });
+    const adapter = new PrismaPg(pool);
     super({ adapter });
   }
 
   async onModuleInit() {
-    try {
-      await this.$connect();
-      console.log('✅ Prisma conectado ao banco com sucesso');
-    } catch (error) {
-      console.error('❌ Erro ao conectar Prisma:', error);
-      throw error;
-    }
+    await this.$connect();
+    console.log('✅ Prisma conectado ao banco com sucesso');
   }
 
   async onModuleDestroy() {
