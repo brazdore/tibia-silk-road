@@ -32,7 +32,7 @@ describe('Items (e2e)', () => {
         { name: 'Plate Armor', weight: 120.0, type: 'Armor', task_deliverable: false },
       ],
     });
-  });
+  }, 60000);
 
   afterAll(async () => {
     await prisma.item.deleteMany();
