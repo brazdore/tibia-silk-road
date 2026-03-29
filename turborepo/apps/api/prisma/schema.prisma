@@ -23,8 +23,9 @@ model Item {
 
 model Npc {
   id                    Int           @id @default(autoincrement())
-  name                  String        @db.VarChar(100)
+  name                  String        @unique @db.VarChar(100)
   needs_quest_to_unlock Boolean       @default(false)
+  icon_url              String?
   offers                Offer[]
   locations             NpcLocation[]
   npc_quests            NpcQuest[]
@@ -65,14 +66,15 @@ model Quest {
 }
 
 model NpcLocation {
-  id      Int  @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   npc_id  Int
   city_id Int
   coord_x Int
   coord_y Int
-  coord_z Int  @default(7)
-  npc     Npc  @relation(fields: [npc_id], references: [id], onDelete: Cascade)
-  city    City @relation(fields: [city_id], references: [id])
+  coord_z Int      @default(7)
+  weekday Weekday?
+  npc     Npc      @relation(fields: [npc_id], references: [id], onDelete: Cascade)
+  city City @relation(fields: [city_id], references: [id], onDelete: Restrict)
 
   @@map("npc_locations")
   @@schema("silkroad")
@@ -104,6 +106,18 @@ enum ItemType {
   Creature_Product @map("Creature Product")
   Food
   Other
+
+  @@schema("silkroad")
+}
+
+enum Weekday {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
 
   @@schema("silkroad")
 }
