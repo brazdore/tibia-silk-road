@@ -1,98 +1,311 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Tibia Silk Road — API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+REST API for the Tibia Silk Road project. Provides item, NPC, and offer data used by the Silk Road trading assistant.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Runtime:** Node.js
+- **Framework:** NestJS
+- **ORM:** Prisma 7 (driver adapter mode via `@prisma/adapter-pg`)
+- **Database:** PostgreSQL (AWS RDS in production)
+- **Language:** TypeScript
+- **Package Manager:** pnpm
+- **Testing:** Jest + Supertest + Testcontainers
 
-## Project setup
+---
 
-```bash
-$ pnpm install
+## Requirements
+
+- Node.js 20+
+- pnpm 9+
+- Docker (for E2E tests)
+- PostgreSQL (for local development)
+
+---
+
+## Environment Variables
+
+Create a `.env` file in `apps/api`:
+
+```env
+DATABASE_URL=postgresql://user:password@host:5432/silkroad
+ALLOWED_ORIGIN=http://localhost:3000
 ```
 
-## Compile and run the project
+In production:
 
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+```env
+DATABASE_URL=postgresql://user:password@rds-host:5432/silkroad?sslmode=require
+ALLOWED_ORIGIN=https://yourdomain.com
 ```
 
-## Run tests
+---
+
+## Running
+
+### Development
 
 ```bash
-# unit tests
-$ pnpm run test
+# From repo root
+pnpm --filter api dev
 
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+# Or from apps/api
+pnpm dev
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Build
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm --filter api build
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Production
 
-## Resources
+```bash
+pnpm --filter api start:prod
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Testing
 
-## Support
+### Unit tests
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+pnpm --filter api test
+```
 
-## Stay in touch
+### E2E tests (requires Docker)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+pnpm --filter api test:e2e
+```
 
-## License
+E2E tests spin up a real PostgreSQL container via Testcontainers. The container is managed automatically by the Ryuk reaper — no manual cleanup required.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## Database
+
+### Push schema (development)
+
+```bash
+pnpm prisma db push
+```
+
+### Generate Prisma client
+
+```bash
+pnpm prisma generate
+```
+
+### Run migrations (production)
+
+```bash
+pnpm prisma migrate deploy
+```
+
+---
+
+## API Reference
+
+Base URL: `http://localhost:3001`
+
+Interactive docs (Swagger): `http://localhost:3001/docs`
+
+---
+
+### Items
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/items` | Returns all items ordered by id |
+| GET | `/items/:id` | Returns a single item by id |
+| GET | `/items/name/:name` | Returns items matching name (case-insensitive) |
+
+#### `GET /items`
+
+```http
+GET /items
+```
+
+**Response `200`**
+```json
+[
+  {
+    "id": 1,
+    "name": "Broadsword",
+    "weight": "52.5",
+    "type": "Weapon",
+    "task_deliverable": true,
+    "icon_url": "https://..."
+  }
+]
+```
+
+#### `GET /items/:id`
+
+```http
+GET /items/23
+```
+
+**Response `200`** — single item object  
+**Response `404`** — item not found
+
+#### `GET /items/name/:name`
+
+```http
+GET /items/name/sword
+```
+
+**Response `200`** — array of matching items
+
+---
+
+### NPCs
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/npcs` | Returns all NPCs |
+| GET | `/npcs/:id` | Returns a single NPC by id |
+| GET | `/npcs/name/:name` | Returns NPC matching name |
+
+#### `GET /npcs`
+
+```http
+GET /npcs
+```
+
+**Response `200`**
+```json
+[
+  {
+    "id": 1,
+    "name": "Rashid",
+    "needs_quest_to_unlock": true,
+    "icon_url": "https://..."
+  }
+]
+```
+
+#### `GET /npcs/:id`
+
+**Response `200`** — single NPC object  
+**Response `404`** — NPC not found
+
+#### `GET /npcs/name/:name`
+
+**Response `200`** — single NPC object
+
+---
+
+### Offers
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/offers` | Returns all offers, optionally filtered |
+| GET | `/offers?item_id=` | Returns offers for a specific item |
+| GET | `/offers?npc_id=` | Returns offers for a specific NPC |
+| GET | `/offers?item_id=&npc_id=` | Returns a specific item/NPC offer |
+
+#### `GET /offers`
+
+```http
+GET /offers?item_id=23&npc_id=1
+```
+
+**Query params:**
+
+| Param | Type | Required | Description |
+|-------|------|----------|-------------|
+| `item_id` | number | No | Filter by item |
+| `npc_id` | number | No | Filter by NPC |
+
+**Response `200`**
+```json
+[
+  {
+    "id": 1,
+    "item_id": 23,
+    "npc_id": 1,
+    "price": 8000
+  }
+]
+```
+
+---
+
+## Security
+
+### CORS
+
+Only the origin defined in `ALLOWED_ORIGIN` is permitted. All other origins are blocked at the browser level.
+
+### Rate Limiting
+
+Requests are limited to **100 per minute per IP**. Exceeding this returns:
+
+```json
+{
+  "statusCode": 429,
+  "message": "ThrottlerException: Too Many Requests"
+}
+```
+
+---
+
+## Project Structure
+
+````
+tibia-silk-road\turborepo\apps\api
+├── eslint.config.mjs
+├── nest-cli.json
+├── package.json
+├── prisma
+|  └── schema.prisma
+├── prisma.config.d.ts
+├── prisma.config.js
+├── prisma.config.js.map
+├── prisma.config.ts
+├── README.md
+├── src
+|  ├── app.controller.ts
+|  ├── app.module.ts
+|  ├── app.service.ts
+|  ├── database
+|  |  ├── prisma.module.ts
+|  |  └── prisma.service.ts
+|  ├── items
+|  |  ├── dto
+|  |  |  └── item.dto.ts
+|  |  ├── items.controller.ts
+|  |  ├── items.module.ts
+|  |  ├── items.service.spec.ts
+|  |  └── items.service.ts
+|  ├── main.ts
+|  ├── npcs
+|  |  ├── dto
+|  |  |  └── npc.dto.ts
+|  |  ├── npcs.controller.ts
+|  |  ├── npcs.module.ts
+|  |  └── npcs.service.ts
+|  └── offers
+|     ├── dto
+|     |  └── offer.dto.ts
+|     ├── offers.controller.ts
+|     ├── offers.module.ts
+|     └── offers.service.ts
+├── test
+|  ├── items.e2e-spec.ts
+|  ├── jest-e2e.json
+|  ├── npcs.e2e-spec.ts
+|  ├── offers.e2e-spec.ts
+|  └── setup.ts
+├── tsconfig.build.json
+└── tsconfig.json
+````
+
+## Documentation
+This documentation was generated with the assistance of AI and reviewed by the author.
