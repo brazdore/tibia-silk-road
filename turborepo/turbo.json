@@ -2,8 +2,12 @@
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
   "tasks": {
+    "generate": {
+      "cache": false,
+      "outputs": ["generated/**"]
+    },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["generate", "^build"],
       "outputs": [".next/**", "dist/**"]
     },
     "lint": {
@@ -13,7 +17,7 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
-      "dependsOn": ["^dev"],
+      "dependsOn": ["generate", "^dev"],
       "cache": false,
       "persistent": true
     },
