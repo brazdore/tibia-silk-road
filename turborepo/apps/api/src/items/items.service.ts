@@ -1,32 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
-import { Item } from '../../generated/prisma';
+import { ItemDto } from './dto/item.dto';
 
 @Injectable()
 export class ItemsService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<Item[]> {
+  async findAll(): Promise<ItemDto[]> {
     return this.prisma.item.findMany({
-      include: {
-        offers: { include: { npc: true } },
-      },
+      orderBy: { id: 'asc' },
     });
   }
 
-  async findOne(id: number): Promise<Item> {
+  async findOne(id: number): Promise<ItemDto> {
     const item = await this.prisma.item.findUnique({
       where: { id },
-      include: {
-        offers: { include: { npc: true } },
-      },
     });
 
     if (!item) throw new NotFoundException(`Item #${id} not found`);
     return item;
   }
 
-  async findByName(name: string): Promise<Item[]> {
+  async findByName(name: string): Promise<ItemDto[]> {
     return this.prisma.item.findMany({
       where: {
         name: {
@@ -34,11 +29,7 @@ export class ItemsService {
           mode: 'insensitive',
         },
       },
-      include: {
-        offers: {
-          include: { npc: true },
-        },
-      },
+      orderBy: { id: 'asc' },
     });
   }
 }

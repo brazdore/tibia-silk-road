@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { ItemsService } from './items.service';
-import { Item } from '../../generated/prisma';
+import { ItemDto } from './dto/item.dto';
 
 @ApiTags('items')
 @Controller('items')
@@ -9,22 +9,26 @@ export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Lista todos os items' })
-  async findAll(): Promise<Item[]> {
+  @ApiOperation({ summary: 'Returns all items' })
+  @ApiResponse({ status: 200, type: [ItemDto] })
+  async findAll(): Promise<ItemDto[]> {
     return this.itemsService.findAll();
   }
 
   @Get('name/:name')
-  @ApiOperation({ summary: 'Busca items por nome' })
-  @ApiParam({ name: 'name', description: 'Nome ou parte do nome do item' })
-  async findByName(@Param('name') name: string): Promise<Item[]> {
+  @ApiOperation({ summary: 'Search items by name' })
+  @ApiParam({ name: 'name', description: 'Full or partial item name' })
+  @ApiResponse({ status: 200, type: [ItemDto] })
+  async findByName(@Param('name') name: string): Promise<ItemDto[]> {
     return this.itemsService.findByName(name);
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Busca item por ID' })
-  @ApiParam({ name: 'id', description: 'ID do item' })
-  async findOne(@Param('id') id: string): Promise<Item> {
+  @ApiOperation({ summary: 'Returns item by ID' })
+  @ApiParam({ name: 'id', description: 'Item ID' })
+  @ApiResponse({ status: 200, type: ItemDto })
+  @ApiResponse({ status: 404, description: 'Item not found' })
+  async findOne(@Param('id') id: string): Promise<ItemDto> {
     return this.itemsService.findOne(+id);
   }
 }
