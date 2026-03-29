@@ -32,5 +32,4 @@ export async function setupTestDatabase(): Promise<string> {
   return url;
 }
 
-export async function teardownTestDatabase() {
-}
+export async function teardownTestDatabase() {}

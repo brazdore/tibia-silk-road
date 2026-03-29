@@ -7,6 +7,12 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors({
+    origin: process.env.ALLOWED_ORIGIN ?? 'http://localhost:3000',
+    methods: ['GET'],
+    allowedHeaders: ['Content-Type'],
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Tibia Silk Road API')
     .setDescription('API para consulta de items, NPCs e ofertas do Silk Road')

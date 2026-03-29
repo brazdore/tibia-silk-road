@@ -17,9 +17,9 @@ describe('Items (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
-        .overrideProvider(PrismaService)
-        .useValue(new PrismaService(databaseUrl))
-        .compile();
+      .overrideProvider(PrismaService)
+      .useValue(new PrismaService(databaseUrl))
+      .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
@@ -28,8 +28,18 @@ describe('Items (e2e)', () => {
 
     await prisma.item.createMany({
       data: [
-        { name: 'Broadsword', weight: 52.5, type: 'Weapon', task_deliverable: true },
-        { name: 'Plate Armor', weight: 120.0, type: 'Armor', task_deliverable: false },
+        {
+          name: 'Broadsword',
+          weight: 52.5,
+          type: 'Weapon',
+          task_deliverable: true,
+        },
+        {
+          name: 'Plate Armor',
+          weight: 120.0,
+          type: 'Armor',
+          task_deliverable: false,
+        },
       ],
     });
   }, 60000);
@@ -38,7 +48,7 @@ describe('Items (e2e)', () => {
     await prisma.item.deleteMany();
     await prisma.$disconnect();
     await app.close();
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
     await teardownTestDatabase();
   });
 
@@ -58,7 +68,9 @@ describe('Items (e2e)', () => {
   });
 
   it('GET /items/name/:name → returns matching items', async () => {
-    const res = await request(app.getHttpServer()).get('/items/name/sword').expect(200);
+    const res = await request(app.getHttpServer())
+      .get('/items/name/sword')
+      .expect(200);
     expect(res.body).toHaveLength(1);
     expect(res.body[0].name).toBe('Broadsword');
   });
