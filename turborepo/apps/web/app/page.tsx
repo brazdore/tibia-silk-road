@@ -3,6 +3,8 @@ import ThemeToggle from '@/components/ThemeToggle';
 import RashidBanner from '@/components/RashidBanner';
 import TradeCalculator from '@/components/TradeCalculator';
 import {getItems, getNpcs, getOffers} from '@/lib/api';
+import Footer from '@/components/Footer';
+
 import type {FlatOffer} from '@/lib/types';
 
 export default async function Page() {
@@ -60,6 +62,7 @@ export default async function Page() {
             </header>
             <TradeCalculator flatOffers={flatOffers}/>
             <RashidBanner/>
+            <Footer />
         </main>
     );
 }
