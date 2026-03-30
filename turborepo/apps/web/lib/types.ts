@@ -1,7 +1,20 @@
+export interface NpcLocation {
+    city: string;
+    weekday: string | null;
+    coord_x: number;
+    coord_y: number;
+    coord_z: number;
+}
+
+export interface NpcQuest {
+    id: number;
+    name: string;
+}
+
 export interface Item {
     id: number;
     name: string;
-    weight: number;
+    weight: string;
     type: string;
     task_deliverable: boolean;
     icon_url: string | null;
@@ -12,8 +25,8 @@ export interface Npc {
     name: string;
     needs_quest_to_unlock: boolean;
     icon_url: string | null;
-    weekday: string | null;
-    location: string | null;
+    locations: NpcLocation[];
+    quests: NpcQuest[];
 }
 
 export interface Offer {
@@ -23,7 +36,13 @@ export interface Offer {
     price: number;
 }
 
-export interface OfferWithRelations extends Offer {
-    item: Item;
-    npc: Npc;
+export interface FlatOffer {
+    offerId:  number;
+    itemId:   number;
+    name:     string;
+    weight:   number;
+    npcPrice: number;
+    npcName:  string;
+    npcCity:  string;
+    iconUrl:  string | null;
 }

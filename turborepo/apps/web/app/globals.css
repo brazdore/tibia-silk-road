@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@layer base {
+    :root {
+        --font-body: system-ui, sans-serif;
+        --font-display: Georgia, serif;
+    }
+}
+
 :root {
     --bg: 245 238 220;
     --panel: 255 251 240;
@@ -14,9 +21,6 @@
     --negative: 185 28 28;
     --toggle-x: 90vw;
     --toggle-y: 72px;
-
-    --font-body: system-ui, sans-serif;
-    --font-display: Georgia, serif;
 }
 
 html.dark {
