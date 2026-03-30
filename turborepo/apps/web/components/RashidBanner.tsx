@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getRashidLocation, isGermanySummerTime, type RashidInfo } from '@/lib/rashid';
+import {useEffect, useState} from 'react';
+import {getRashidLocation, isGermanySummerTime, type RashidInfo} from '@/lib/rashid';
 
 const DEV_DATES = [
-    { label: 'Sunday – Carlin',       value: '2026-03-29T12:00:00Z' },
-    { label: 'Monday – Svargrond',    value: '2026-03-30T12:00:00Z' },
-    { label: 'Tuesday – Liberty Bay', value: '2026-03-31T12:00:00Z' },
-    { label: 'Wednesday – Port Hope', value: '2026-04-01T12:00:00Z' },
-    { label: 'Thursday – Ankrahmun',  value: '2026-04-02T12:00:00Z' },
-    { label: 'Friday – Darashia',     value: '2026-04-03T12:00:00Z' },
-    { label: 'Saturday – Edron',      value: '2026-04-04T12:00:00Z' },
+    {label: 'Sunday – Carlin', value: '2026-03-29T12:00:00Z'},
+    {label: 'Monday – Svargrond', value: '2026-03-30T12:00:00Z'},
+    {label: 'Tuesday – Liberty Bay', value: '2026-03-31T12:00:00Z'},
+    {label: 'Wednesday – Port Hope', value: '2026-04-01T12:00:00Z'},
+    {label: 'Thursday – Ankrahmun', value: '2026-04-02T12:00:00Z'},
+    {label: 'Friday – Darashia', value: '2026-04-03T12:00:00Z'},
+    {label: 'Saturday – Edron', value: '2026-04-04T12:00:00Z'},
 ];
 
 function getSecondsUntilNextSave(): number {
@@ -37,16 +37,17 @@ function formatCountdown(seconds: number): string {
 }
 
 export default function RashidBanner() {
-    const [info, setInfo]           = useState<RashidInfo | null>(null);
+    const [info, setInfo] = useState<RashidInfo | null>(null);
     const [countdown, setCountdown] = useState(0);
-    const [mapOpen, setMapOpen]     = useState(false);
-    const [mockDate, setMockDate]   = useState<Date | undefined>(undefined);
+    const [mapOpen, setMapOpen] = useState(false);
+    const [mockDate, setMockDate] = useState<Date | undefined>(undefined);
 
     useEffect(() => {
         function tick() {
             setInfo(getRashidLocation(mockDate ?? new Date()));
             setCountdown(getSecondsUntilNextSave());
         }
+
         tick();
         const id = setInterval(tick, 1000);
         return () => clearInterval(id);
@@ -93,20 +94,42 @@ export default function RashidBanner() {
                     </select>
                 )}
 
-                <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'rgb(var(--muted))' }}>
+                <div style={{
+                    fontSize: '0.7rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    color: 'rgb(var(--muted))'
+                }}>
                     🗺️ Rashid is in
                 </div>
-                <div style={{ fontFamily: 'var(--font-display)', color: 'rgb(var(--accent-gold))', fontWeight: 700, fontSize: '1rem', marginTop: '0.15rem' }}>
+                <div style={{
+                    fontFamily: 'var(--font-display)',
+                    color: 'rgb(var(--accent-gold))',
+                    fontWeight: 700,
+                    fontSize: '1rem',
+                    marginTop: '0.15rem'
+                }}>
                     {info.city}
                 </div>
-                <div style={{ color: 'rgb(var(--soft))', fontSize: '0.72rem', marginTop: '0.1rem', lineHeight: 1.3 }}>
+                <div style={{color: 'rgb(var(--soft))', fontSize: '0.72rem', marginTop: '0.1rem', lineHeight: 1.3}}>
                     {info.location}
                 </div>
-                <div style={{ marginTop: '0.5rem', borderTop: '1px solid rgb(var(--border))', paddingTop: '0.4rem' }}>
-                    <div style={{ fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'rgb(var(--muted))' }}>
+                <div style={{marginTop: '0.5rem', borderTop: '1px solid rgb(var(--border))', paddingTop: '0.4rem'}}>
+                    <div style={{
+                        fontSize: '0.68rem',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        color: 'rgb(var(--muted))'
+                    }}>
                         Next server save
                     </div>
-                    <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', fontWeight: 600, color: 'rgb(var(--text))', letterSpacing: '0.04em' }}>
+                    <div style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '0.95rem',
+                        fontWeight: 600,
+                        color: 'rgb(var(--text))',
+                        letterSpacing: '0.04em'
+                    }}>
                         {formatCountdown(countdown)}
                     </div>
                 </div>
@@ -155,19 +178,29 @@ export default function RashidBanner() {
                             padding: '0.6rem 1rem',
                             borderBottom: '1px solid rgb(var(--border))',
                         }}>
-                            <span style={{ fontFamily: 'var(--font-display)', color: 'rgb(var(--accent-gold))', fontWeight: 700 }}>
+                            <span style={{
+                                fontFamily: 'var(--font-display)',
+                                color: 'rgb(var(--accent-gold))',
+                                fontWeight: 700
+                            }}>
                                 {info.city} — {info.location}
                             </span>
                             <button
                                 onClick={() => setMapOpen(false)}
-                                style={{ background: 'none', border: 'none', fontSize: '1.25rem', cursor: 'pointer', color: 'rgb(var(--muted))' }}
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    fontSize: '1.25rem',
+                                    cursor: 'pointer',
+                                    color: 'rgb(var(--muted))'
+                                }}
                             >
                                 ✕
                             </button>
                         </div>
                         <iframe
                             src={info.mapUrl}
-                            style={{ flex: 1, border: 'none', width: '100%' }}
+                            style={{flex: 1, border: 'none', width: '100%'}}
                             title={`Map — ${info.city}`}
                         />
                     </div>
