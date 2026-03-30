@@ -1,50 +1,93 @@
+@import "tailwindcss";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --bg: 245 238 220;
+    --panel: 255 251 240;
+    --panel-strong: 255 248 225;
+    --text: 44 28 10;
+    --muted: 101 77 48;
+    --soft: 140 110 75;
+    --border: 180 140 80;
+    --accent: 161 96 10;
+    --accent-gold: 212 160 20;
+    --positive: 22 101 52;
+    --negative: 185 28 28;
+    --toggle-x: 90vw;
+    --toggle-y: 72px;
+
+    --font-body: system-ui, sans-serif;
+    --font-display: Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.dark {
+    --bg: 15 12 8;
+    --panel: 30 22 12;
+    --panel-strong: 40 30 15;
+    --text: 240 225 190;
+    --muted: 195 170 120;
+    --soft: 150 125 85;
+    --border: 90 65 30;
+    --accent: 212 160 20;
+    --accent-gold: 232 185 50;
+    --positive: 52 211 99;
+    --negative: 251 113 100;
 }
 
-html,
+html, body {
+    min-height: 100%;
+}
+
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+    color: rgb(var(--text));
+    background-color: rgb(var(--bg));
+    font-family: var(--font-body), system-ui, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
+h1, h2, h3 {
+    font-family: var(--font-display), Georgia, serif;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 650ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    mix-blend-mode: normal;
 }
 
-.imgDark {
-  display: none;
+html.theme-transition::view-transition-old(root) {
+    animation-name: tsr-theme-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+html.theme-transition::view-transition-new(root) {
+    animation-name: tsr-theme-in;
+}
 
-  .imgLight {
-    display: none;
-  }
-  .imgDark {
-    display: unset;
-  }
+@keyframes tsr-theme-in {
+    0% {
+        clip-path: circle(0 at var(--toggle-x) var(--toggle-y));
+        filter: blur(18px);
+    }
+    55% {
+        clip-path: circle(28vmax at var(--toggle-x) var(--toggle-y));
+    }
+    100% {
+        clip-path: circle(150vmax at var(--toggle-x) var(--toggle-y));
+        filter: blur(0);
+    }
+}
+
+@keyframes tsr-theme-out {
+    0% {
+        opacity: 1;
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0.92;
+        filter: blur(12px);
+    }
 }
