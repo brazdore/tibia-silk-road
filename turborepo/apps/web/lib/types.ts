@@ -36,13 +36,20 @@ export interface Offer {
     price: number;
 }
 
+export interface OfferWithRelations extends Offer {
+    item: Item;
+    npc: Npc;
+}
+
 export interface FlatOffer {
-    offerId:  number;
-    itemId:   number;
-    name:     string;
-    weight:   number;
+    offerId: number;
+    itemId: number;
+    name: string;
+    weight: number;
     npcPrice: number;
-    npcName:  string;
-    npcCity:  string;
-    iconUrl:  string | null;
+    npcId: number;
+    npcName: string;
+    npcCity: string;
+    npcIconUrl: string | null;
+    iconUrl: string | null;
 }
