@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
-import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from './database/prisma.module';
 import { ItemsModule } from './items/items.module';
 import { NpcsModule } from './npcs/npcs.module';
 import { OffersModule } from './offers/offers.module';
+import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
@@ -14,11 +15,12 @@ import { OffersModule } from './offers/offers.module';
     OffersModule,
     ThrottlerModule.forRoot([
       {
-        ttl: 60000, // ms
-        limit: 100, // max. per IP
+        ttl: 60000,
+        limit: 100,
       },
     ]),
   ],
+  controllers: [HealthController],
   providers: [
     {
       provide: APP_GUARD,
