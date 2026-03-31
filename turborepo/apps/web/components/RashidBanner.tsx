@@ -1,6 +1,7 @@
 'use client';
 
 import {useEffect, useState} from 'react';
+import {useTranslation} from '@/lib/i18n';
 import {getRashidLocation, isGermanySummerTime, type RashidInfo} from '@/lib/rashid';
 
 const DEV_DATES = [
@@ -41,6 +42,7 @@ export default function RashidBanner() {
     const [countdown, setCountdown] = useState(0);
     const [mapOpen, setMapOpen] = useState(false);
     const [mockDate, setMockDate] = useState<Date | undefined>(undefined);
+    const t = useTranslation();
 
     useEffect(() => {
         function tick() {
@@ -100,7 +102,7 @@ export default function RashidBanner() {
                     letterSpacing: '0.06em',
                     color: 'rgb(var(--muted))'
                 }}>
-                    🗺️ Rashid is in
+                    {t('rashidIn')}
                 </div>
                 <div style={{
                     fontFamily: 'var(--font-display)',
@@ -121,7 +123,7 @@ export default function RashidBanner() {
                         letterSpacing: '0.05em',
                         color: 'rgb(var(--muted))'
                     }}>
-                        Next server save
+                        {t('nextServerSave')}
                     </div>
                     <div style={{
                         fontFamily: 'var(--font-display)',
@@ -148,7 +150,7 @@ export default function RashidBanner() {
                         fontFamily: 'var(--font-body)',
                     }}
                 >
-                    📍 View on map
+                    {t('viewOnMap')}
                 </button>
             </div>
 

@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
-import { SiGithub } from 'react-icons/si';
-import { BR, US, PL, ES } from 'country-flag-icons/react/3x2';
-import type { FlagComponent } from 'country-flag-icons/react/3x2';
+import {useEffect, useRef, useState} from 'react';
+import {flushSync} from 'react-dom';
+import {SiGithub} from 'react-icons/si';
+import type {FlagComponent} from 'country-flag-icons/react/3x2';
+import {BR, ES, PL, US} from 'country-flag-icons/react/3x2';
+import {useLocale, useTranslation} from '@/lib/i18n';
 
 type Theme = 'light' | 'dark';
 type Locale = 'pt-BR' | 'en' | 'pl' | 'es';
@@ -12,10 +13,10 @@ type Locale = 'pt-BR' | 'en' | 'pl' | 'es';
 const STORAGE_KEY = 'tsr-theme';
 
 const LOCALES: { code: Locale; Flag: FlagComponent; label: string }[] = [
-    { code: 'pt-BR', Flag: BR, label: 'Português (BR)' },
-    { code: 'en',    Flag: US, label: 'English'         },
-    { code: 'pl',    Flag: PL, label: 'Polski'          },
-    { code: 'es',    Flag: ES, label: 'Español'         },
+    {code: 'pt-BR', Flag: BR, label: 'Português (BR)'},
+    {code: 'en', Flag: US, label: 'English'},
+    {code: 'pl', Flag: PL, label: 'Polski'},
+    {code: 'es', Flag: ES, label: 'Español'},
 ];
 
 function getInitialTheme(): Theme {
@@ -32,11 +33,14 @@ function applyTheme(theme: Theme): void {
 }
 
 export default function ThemeToggle() {
-    const [theme, setTheme]               = useState<Theme>('dark');
-    const [mounted, setMounted]           = useState(false);
-    const [locale, setLocale]             = useState<Locale>('en');
+    const [theme, setTheme] = useState<Theme>('dark');
+    const [mounted, setMounted] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const dropdownRef                     = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // i18n
+    const {locale, setLocale} = useLocale();
+    const t = useTranslation();
 
     useEffect(() => {
         const initial = getInitialTheme();
@@ -57,6 +61,7 @@ export default function ThemeToggle() {
                 setDropdownOpen(false);
             }
         }
+
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
@@ -70,7 +75,11 @@ export default function ThemeToggle() {
         root.style.setProperty('--toggle-y', `${rect.top + rect.height / 2}px`);
         root.classList.add('theme-transition');
 
-        const switchTheme = () => { flushSync(() => { setTheme(nextTheme); }); };
+        const switchTheme = () => {
+            flushSync(() => {
+                setTheme(nextTheme);
+            });
+        };
 
         if (!document.startViewTransition) {
             switchTheme();
@@ -87,7 +96,7 @@ export default function ThemeToggle() {
     const isDark = theme === 'dark';
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
 
             {/* GitHub link */}
             <a
@@ -107,14 +116,14 @@ export default function ThemeToggle() {
                 onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
                 onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
             >
-                <SiGithub size={17} />
+                <SiGithub size={17}/>
             </a>
 
             {/* Language dropdown */}
-            <div ref={dropdownRef} style={{ position: 'relative' }}>
+            <div ref={dropdownRef} style={{position: 'relative'}}>
                 <button
                     onClick={() => setDropdownOpen(o => !o)}
-                    title={activeLocale.label}
+                    title={activeLocale?.label}
                     style={{
                         display: 'flex', alignItems: 'center', gap: '0.35rem',
                         padding: '0.2rem 0.5rem 0.2rem 0.3rem',
@@ -126,31 +135,27 @@ export default function ThemeToggle() {
                         transition: 'border-color 0.15s ease',
                     }}
                 >
-                    <activeLocale.Flag style={{
-                        width: 22, height: 22, borderRadius: '50%',
-                        display: 'block', flexShrink: 0,
-                    }} />
-                    <span style={{ fontSize: '0.7rem', color: 'rgb(var(--muted))', userSelect: 'none', lineHeight: 1 }}>
-            {dropdownOpen ? '▲' : '▼'}
-          </span>
+                    {activeLocale && <activeLocale.Flag style={{width: 20, borderRadius: '2px'}}/>}
+                    {dropdownOpen ? '▲' : '▼'}
                 </button>
 
                 {dropdownOpen && (
                     <div style={{
-                        position: 'absolute', top: 'calc(100% + 0.4rem)', right: 0,
-                        background: 'rgb(var(--panel))',
+                        position: 'absolute', top: 'calc(100% + 0.4rem)', right: 0, zIndex: 50,
+                        background: 'rgb(var(--panel-strong))',
                         border: '1px solid rgb(var(--border))',
                         borderRadius: '0.6rem',
                         padding: '0.3rem',
-                        display: 'flex', flexDirection: 'column', gap: '0.15rem',
-                        zIndex: 50,
-                        minWidth: '10rem',
-                        boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+                        minWidth: '160px',
+                        boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
                     }}>
-                        {LOCALES.map(({ code, Flag, label }) => (
+                        {LOCALES.map(({code, Flag, label}) => (
                             <button
                                 key={code}
-                                onClick={() => { setLocale(code); setDropdownOpen(false); }}
+                                onClick={() => {
+                                    setLocale(code);
+                                    setDropdownOpen(false);
+                                }}
                                 style={{
                                     display: 'flex', alignItems: 'center', gap: '0.6rem',
                                     padding: '0.4rem 0.6rem',
@@ -172,7 +177,7 @@ export default function ThemeToggle() {
                                         (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
                                 }}
                             >
-                                <Flag style={{ width: 20, height: 20, borderRadius: '50%', flexShrink: 0 }} />
+                                <Flag style={{width: 20, borderRadius: '2px', flexShrink: 0}}/>
                                 {label}
                             </button>
                         ))}
@@ -184,19 +189,21 @@ export default function ThemeToggle() {
             <button
                 onClick={handleToggle}
                 style={{
-                    display: 'flex', alignItems: 'center', gap: '0.4rem',
-                    padding: '0.35rem 0.75rem', borderRadius: '2rem',
+                    display: 'flex', alignItems: 'center', gap: '0.35rem',
+                    padding: '0.2rem 0.75rem',
+                    borderRadius: '2rem',
                     border: '1px solid rgb(var(--border))',
                     background: 'rgb(var(--panel))',
                     color: 'rgb(var(--text))',
-                    cursor: 'pointer', fontSize: '0.85rem',
-                    transition: 'background 0.2s ease',
+                    cursor: 'pointer',
+                    fontSize: '0.85rem',
+                    transition: 'border-color 0.15s ease',
+                    fontFamily: 'var(--font-body)',
                 }}
             >
-                <span>{mounted ? (isDark ? '🌙' : '☀️') : '🌙'}</span>
-                <span>{mounted ? (isDark ? 'Night' : 'Day') : 'Night'}</span>
+                {mounted ? (isDark ? '🌙' : '☀️') : '🌙'}
+                {mounted ? (isDark ? t('night') : t('day')) : t('night')}
             </button>
-
         </div>
     );
 }

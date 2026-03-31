@@ -1,4 +1,10 @@
+'use client';
+
+import {useTranslation} from '@/lib/i18n';
+
 export default function Footer() {
+    const t = useTranslation();
+    const year = new Date().getFullYear();
     return (
         <footer style={{
             borderTop: '1px solid rgb(var(--border))',
@@ -9,26 +15,26 @@ export default function Footer() {
             color: 'rgb(var(--muted))',
             lineHeight: 1.7,
         }}>
-            <p style={{ margin: '0 0 0.35rem 0', fontWeight: 600, color: 'rgb(var(--text))' }}>
-                © {new Date().getFullYear()} · Tibia Silk Road
+            <p style={{margin: '0 0 0.35rem 0', fontWeight: 600, color: 'rgb(var(--text))'}}>
+                {t('footerCopyright').replace('{year}', String(year))}
             </p>
-            <p style={{ margin: 0, maxWidth: '560px', marginInline: 'auto' }}>
+            <p style={{margin: 0, maxWidth: '560px', marginInline: 'auto'}}>
                 <a href="https://www.tibia.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
                     Tibia
                 </a>
-                {' '}is a free massively multiplayer online role-playing game developed and published by{' '}
+                {' '}{t('footerIsA')}{' '}
                 <a href="https://www.cipsoft.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
                     CipSoft GmbH
                 </a>
-                . All Tibia-related content is &copy;{' '}
+                . {t('footerAllContent')}{' '}
                 <a href="https://www.tibia.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
                     Tibia.com
                 </a>
                 {' '}/
-                <a href="https://www.tibia.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
+                <a href="https://www.cipsoft.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
                     CipSoft GmbH
                 </a>
-                . This site is not affiliated with or endorsed by CipSoft.
+                . {t('footerNotAffiliated')}
             </p>
         </footer>
     );

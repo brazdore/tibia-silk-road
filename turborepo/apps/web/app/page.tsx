@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import ThemeToggle from '@/components/ThemeToggle';
 import RashidBanner from '@/components/RashidBanner';
 import TradeCalculator from '@/components/TradeCalculator';
 import {getItems, getNpcs, getOffers} from '@/lib/api';
 import Footer from '@/components/Footer';
+import PageHeader from "@/components/PageHeaders";
 
 import type {FlatOffer} from '@/lib/types';
 
@@ -46,23 +46,10 @@ export default async function Page() {
             <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem'}}>
                 <ThemeToggle/>
             </div>
-            <header style={{textAlign: 'center', marginBottom: '2rem'}}>
-                <Image
-                    src="/android-chrome-192x192.png"
-                    alt="Tibia Silk Road logo"
-                    width={52} height={52} priority
-                    style={{margin: '0 auto 0.5rem'}}
-                />
-                <h1 style={{color: 'rgb(var(--accent-gold))'}} className="text-3xl font-black">
-                    Tibia Silk Road
-                </h1>
-                <p style={{color: 'rgb(var(--muted))'}} className="mt-1 text-xs">
-                    Merchant Market NPC Profit Tracker
-                </p>
-            </header>
+            <PageHeader/>
             <TradeCalculator flatOffers={flatOffers}/>
             <RashidBanner/>
-            <Footer />
+            <Footer/>
         </main>
     );
 }

@@ -3,6 +3,7 @@
 import {useMemo, useState} from 'react';
 import type {FlatOffer} from '@/lib/types';
 import {calcCapacity, calcProfit, formatGp, formatWeight, type Vocation,} from '@/lib/calc';
+import {useTranslation} from '@/lib/i18n';
 
 interface CalcResult {
     totalOffer: number;
@@ -74,6 +75,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
     const [bpSlots, setBpSlots] = useState(20);
     const [bpWeight, setBpWeight] = useState(18);
     const [selectedNpcIds, setSelectedNpcIds] = useState<Set<number>>(new Set());
+    const t = useTranslation();
 
     const npcs = useMemo(() => {
         const seen = new Map<number, { id: number; name: string; iconUrl: string | null }>();
@@ -217,7 +219,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
         fontSize: '0.72rem', textTransform: 'uppercase',
         letterSpacing: '0.06em', color: 'rgb(var(--muted))',
     }}>
-      Filter by NPC
+      {t('filterByNpc')}
     </span>
                     {selectedNpcIds.size > 0 && (
                         <button
@@ -231,7 +233,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                 color: 'rgb(var(--negative))', fontWeight: 500,
                             }}
                         >
-                            🗑️ Clear filter
+                            {t('clearFilter')}
                         </button>
                     )}
                 </div>
@@ -256,7 +258,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                 textTransform: 'uppercase', letterSpacing: '0.05em',
                                 whiteSpace: 'nowrap',
                             }}>
-        ⚪ Others
+        {t('others')}
       </span>
 
                             {/* Individual NPC pills */}
@@ -318,7 +320,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                         letterSpacing: 0,
                                         opacity: 0.7
                                     }}>
-            {allIn ? '☑️ deselect all' : '☐ select all'}
+            {allIn ? t('deselectAll') : t('selectAll')}
           </span>
                                 </button>
 
@@ -348,10 +350,10 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
 
             {/* ── Item Search ── */}
             <div style={card}>
-                <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>Select Item</h2>
+                <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>{t('selectItem')}</h2>
                 <div style={{position: 'relative'}}>
                     <input
-                        type="text" placeholder="Search item name…" value={search}
+                        type="text" placeholder={t('searchPlaceholder')} value={search}
                         style={inputStyle} suppressHydrationWarning
                         onChange={e => {
                             setSearch(e.target.value);
@@ -407,8 +409,8 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
               <strong>{selected.name}</strong>
                             {' · NPC '}<strong>{selected.npcName}</strong>
                             {selected.npcCity ? ` · ${selected.npcCity}` : ''}
-                            {' · Sells for '}<strong>{formatGp(selected.npcPrice)}</strong>
-                            {' · Weight '}<strong>{formatWeight(selected.weight)}</strong>
+                            {` · ${t('sellsFor')} `}<strong>{formatGp(selected.npcPrice)}</strong>
+                            {` · ${t('weight')} `}<strong>{formatWeight(selected.weight)}</strong>
             </span>
                     </div>
                 )}
@@ -417,16 +419,16 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
             {/* ── Market Offer + Result ── */}
             <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem'}}>
                 <div style={card}>
-                    <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>Market Offer</h2>
+                    <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>{t('marketOffer')}</h2>
                     <div style={{display: 'flex', flexDirection: 'column', gap: '0.6rem'}}>
                         <label style={labelStyle}>
-                            Quantity
+                            {t('quantity')}
                             <input type="number" min={1} value={quantity} style={inputStyle}
                                    suppressHydrationWarning
                                    onChange={e => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}/>
                         </label>
                         <label style={labelStyle}>
-                            Market Buy Price per unit
+                            {t('marketBuyPrice')}
                             <input type="number" min={0} value={marketPrice} style={inputStyle}
                                    suppressHydrationWarning
                                    onChange={e => setMarketPrice(Math.max(0, parseInt(e.target.value) || 0))}/>
@@ -440,29 +442,29 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                         }}>
                             <input type="checkbox" checked={includeMarketFee} suppressHydrationWarning
                                    onChange={e => setIncludeMarketFee(e.target.checked)}/>
-                            Include market fee
+                            {t('includeMarketFee')}
                         </label>
                     </div>
                 </div>
 
                 <div style={{...card, background: 'rgb(var(--panel-strong))'}}>
-                    <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>Result</h2>
+                    <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>{t('result')}</h2>
                     {result ? (
                         <>
                             <div style={grid2}>
-                                <span style={{color: 'rgb(var(--muted))'}}>Total Market Offer</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('totalMarketOffer')}</span>
                                 <span>{formatGp(result.totalOffer)}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>Market Fee</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('marketFee')}</span>
                                 <span style={{color: 'rgb(var(--negative))'}}>{formatGp(result.marketFee)}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>Total Cost</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('totalCost')}</span>
                                 <span>{formatGp(result.totalCost)}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>NPC Revenue</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('npcRevenue')}</span>
                                 <span style={{color: 'rgb(var(--positive))'}}>{formatGp(result.npcRevenue)}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>Total Weight</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('totalWeight')}</span>
                                 <span>{formatWeight(singleWeight)}</span>
                                 {singleProfitPerOz !== null && (
                                     <>
-                                        <span style={{color: 'rgb(var(--muted))'}}>Profit per oz.</span>
+                                        <span style={{color: 'rgb(var(--muted))'}}>{t('profitPerOz')}</span>
                                         <span>{singleProfitPerOz.toFixed(2)} gp/oz.</span>
                                     </>
                                 )}
@@ -472,7 +474,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                 marginTop: '0.6rem', paddingTop: '0.5rem',
                                 display: 'flex', justifyContent: 'space-between', fontWeight: 700,
                             }}>
-                                <span>Net Profit</span>
+                                <span>{t('netProfit')}</span>
                                 <span
                                     style={{color: result.netProfit >= 0 ? 'rgb(var(--positive))' : 'rgb(var(--negative))'}}>
                   {formatGp(result.netProfit)}
@@ -482,8 +484,8 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                 display: 'flex', justifyContent: 'space-between',
                                 fontSize: '0.78rem', color: 'rgb(var(--muted))', marginTop: '0.3rem',
                             }}>
-                                <span>Break-even Price</span>
-                                <span>{formatGp(result.breakEven)} / unit</span>
+                                <span>{t('breakEvenPrice')}</span>
+                                <span>{formatGp(result.breakEven)} {t('perUnit')}</span>
                             </div>
                             <button onClick={handleAddToCart} style={{
                                 marginTop: '0.75rem', width: '100%', padding: '0.5rem',
@@ -491,12 +493,12 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                 background: 'rgba(var(--accent), 0.12)', color: 'rgb(var(--accent))',
                                 cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600,
                             }}>
-                                + Add to Bulk Operation
+                                {t('addToBulk')}
                             </button>
                         </>
                     ) : (
                         <p style={{color: 'rgb(var(--muted))', fontSize: '0.82rem'}}>
-                            Select an item and enter a market price to see results.
+                            {t('emptyResult')}
                         </p>
                     )}
                 </div>
@@ -511,7 +513,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                         alignItems: 'center',
                         marginBottom: '0.75rem'
                     }}>
-                        <h2 style={{fontSize: '1rem', margin: 0}}>Bulk Operation</h2>
+                        <h2 style={{fontSize: '1rem', margin: 0}}>{t('bulkOperation')}</h2>
                         <button onClick={() => setCart([])} style={{
                             display: 'flex', alignItems: 'center', gap: '0.3rem',
                             background: 'rgba(var(--negative), 0.08)',
@@ -520,17 +522,17 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                             cursor: 'pointer', fontSize: '0.75rem',
                             color: 'rgb(var(--negative))', fontWeight: 500,
                         }}>
-                            🗑️ Clear
+                            {t('clear')}
                         </button>
                     </div>
                     <table style={{width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem'}}>
                         <thead>
                         <tr style={{borderBottom: '1px solid rgb(var(--border))', color: 'rgb(var(--muted))'}}>
-                            <th style={{textAlign: 'left', padding: '0.3rem 0.4rem'}}>Item</th>
-                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>Qty</th>
-                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>Price/u</th>
-                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>Net Profit</th>
-                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>Weight</th>
+                            <th style={{textAlign: 'left', padding: '0.3rem 0.4rem'}}>{t('tableItem')}</th>
+                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>{t('tableQty')}</th>
+                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>{t('tablePricePerUnit')}</th>
+                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>{t('tableNetProfit')}</th>
+                            <th style={{textAlign: 'right', padding: '0.3rem 0.4rem'}}>{t('tableWeight')}</th>
                             <th/>
                         </tr>
                         </thead>
@@ -574,19 +576,19 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                         </tbody>
                     </table>
                     <div style={{...grid2, marginTop: '0.75rem'}}>
-                        <span style={{color: 'rgb(var(--muted))'}}>Total Weight</span>
+                        <span style={{color: 'rgb(var(--muted))'}}>{t('totalWeight')}</span>
                         <span>{formatWeight(bulkSummary.totalWeight)}</span>
-                        <span style={{color: 'rgb(var(--muted))'}}>Slots Needed</span>
+                        <span style={{color: 'rgb(var(--muted))'}}>{t('slotsNeeded')}</span>
                         <span>{bulkSummary.totalSlotsNeeded}</span>
-                        <span style={{color: 'rgb(var(--muted))'}}>Total Fees Paid</span>
+                        <span style={{color: 'rgb(var(--muted))'}}>{t('totalFeesPaid')}</span>
                         <span style={{color: 'rgb(var(--negative))'}}>{formatGp(bulkSummary.totalFees)}</span>
-                        <span style={{color: 'rgb(var(--muted))'}}>Total NPC Revenue</span>
+                        <span style={{color: 'rgb(var(--muted))'}}>{t('totalNpcRevenue')}</span>
                         <span style={{color: 'rgb(var(--positive))'}}>{formatGp(bulkSummary.npcRevenue)}</span>
-                        <span style={{color: 'rgb(var(--muted))'}}>Total Cost</span>
+                        <span style={{color: 'rgb(var(--muted))'}}>{t('totalCost')}</span>
                         <span>{formatGp(bulkSummary.totalCost)}</span>
                         {bulkProfitPerOz !== null && (
                             <>
-                                <span style={{color: 'rgb(var(--muted))'}}>Profit per oz. (bulk)</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('profitPerOzBulk')}</span>
                                 <span>{bulkProfitPerOz.toFixed(2)} gp/oz.</span>
                             </>
                         )}
@@ -596,7 +598,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                         marginTop: '0.6rem', paddingTop: '0.5rem',
                         display: 'flex', justifyContent: 'space-between', fontWeight: 700,
                     }}>
-                        <span>Net Profit</span>
+                        <span>{t('netProfit')}</span>
                         <span
                             style={{color: bulkSummary.netProfit >= 0 ? 'rgb(var(--positive))' : 'rgb(var(--negative))'}}>
               {formatGp(bulkSummary.netProfit)}
@@ -608,7 +610,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
             {/* ── Capacity & Travels ── */}
             {bulkSummary && (
                 <div style={{...card, marginBottom: '6rem'}}>
-                    <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>Capacity & Travels</h2>
+                    <h2 style={{marginBottom: '0.75rem', fontSize: '1rem'}}>{t('capacityTravels')}</h2>
                     <div style={{
                         display: 'grid',
                         gridTemplateColumns: '1fr 1fr',
@@ -616,13 +618,13 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                         marginBottom: '0.75rem'
                     }}>
                         <label style={labelStyle}>
-                            Level
+                            {t('level')}
                             <input type="number" min={1} value={level} style={inputStyle}
                                    suppressHydrationWarning
                                    onChange={e => setLevel(Math.max(1, parseInt(e.target.value) || 1))}/>
                         </label>
                         <label style={labelStyle}>
-                            Vocation
+                            {t('vocation')}
                             <select value={vocation} suppressHydrationWarning
                                     onChange={e => setVocation(e.target.value as Vocation)}
                                     style={{...inputStyle, cursor: 'pointer'}}>
@@ -636,9 +638,9 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                     {capacitySummary && (
                         <>
                             <div style={{...grid2, marginBottom: '0.5rem'}}>
-                                <span style={{color: 'rgb(var(--muted))'}}>Estimated Capacity</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('estimatedCapacity')}</span>
                                 <span>{formatWeight(capacitySummary.cap)}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>Travels (item weight only)</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('travelsItemOnly')}</span>
                                 <span>{capacitySummary.travelsBare ?? '—'}</span>
                             </div>
                             <div style={{borderTop: '1px solid rgb(var(--border))', margin: '0.5rem 0'}}/>
@@ -652,7 +654,7 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                             }}>
                                 <input type="checkbox" checked={useBackpack} suppressHydrationWarning
                                        onChange={e => setUseBackpack(e.target.checked)}/>
-                                Use backpacks in calculation
+                                {t('useBackpacks')}
                             </label>
                             {useBackpack && (
                                 <div style={{
@@ -662,13 +664,13 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                     marginBottom: '0.6rem'
                                 }}>
                                     <label style={labelStyle}>
-                                        Backpack slots
+                                        {t('backpackSlots')}
                                         <input type="number" min={1} value={bpSlots} style={inputStyle}
                                                suppressHydrationWarning
                                                onChange={e => setBpSlots(Math.max(1, parseInt(e.target.value) || 1))}/>
                                     </label>
                                     <label style={labelStyle}>
-                                        Backpack weight (oz.)
+                                        {t('backpackWeight')}
                                         <input type="number" min={0} value={bpWeight} style={inputStyle}
                                                suppressHydrationWarning
                                                onChange={e => setBpWeight(Math.max(0, parseFloat(e.target.value) || 0))}/>
@@ -676,14 +678,14 @@ export default function TradeCalculator({flatOffers}: { flatOffers: FlatOffer[] 
                                 </div>
                             )}
                             <div style={grid2}>
-                                <span style={{color: 'rgb(var(--muted))'}}>Backpacks Needed</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('backpacksNeeded')}</span>
                                 <span>{useBackpack ? capacitySummary.bpAmountNeeded : 'Disabled'}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>Total Backpacks Weight</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('totalBackpacksWeight')}</span>
                                 <span>{useBackpack ? formatWeight(capacitySummary.totalBpsWeight) : 'Disabled'}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>Total Weight with Backpacks</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('totalWeightWithBackpacks')}</span>
                                 <span>{useBackpack ? formatWeight(capacitySummary.totalWeightWithBps) : 'Disabled'}</span>
-                                <span style={{color: 'rgb(var(--muted))'}}>Travels with backpacks</span>
-                                <span>{useBackpack ? (capacitySummary.travelsWithBp ?? '—') : 'Disabled'}</span>
+                                <span style={{color: 'rgb(var(--muted))'}}>{t('travelsWithBackpacks')}</span>
+                                <span>{useBackpack ? (capacitySummary.travelsWithBp ?? '—') : t('disabled')}</span>
                             </div>
                         </>
                     )}
