@@ -1,159 +1,227 @@
-# Turborepo starter
+# Tibia Silk Road
 
-This Turborepo starter is maintained by the Turborepo core team.
+Full-stack trading assistant for Tibia, focused on NPC arbitrage optimization.
 
-## Using this example
+This project allows players to analyze market opportunities, calculate profit, and optimize logistics (capacity, backpacks, and travel routes) using real game data.
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
+## Architecture
+
+This project is built as a **monorepo using Turborepo**, containing:
+
+- **Frontend (`apps/web`)** → Next.js application
+- **Backend (`apps/api`)** → NestJS REST API
+- **Shared packages (`packages/*`)** → configs and UI primitives
+
+```
+apps/
+  ├── api   → Backend (NestJS + Prisma + PostgreSQL)
+  └── web   → Frontend (Next.js + React)
+
+packages/
+  ├── eslint-config
+  ├── typescript-config
+  └── ui
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## Stack Overview
 
-### Apps and Packages
+### Frontend
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- CSS variables + inline styles (Tailwind baseline)
+- Vitest + React Testing Library
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Backend
+- NestJS
+- Prisma ORM (PostgreSQL)
+- TypeScript
+- Jest + Supertest + Testcontainers
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Tooling
+- Turborepo
+- pnpm workspaces
+- ESLint (shared config)
+- TypeScript (shared config)
 
-### Utilities
+---
 
-This Turborepo has some additional tools already setup for you:
+## Features
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Trade Optimization
+- Item search and filtering
+- NPC-based trade routes
+- Profit and break-even calculations
 
-### Build
+### Bulk Operations
+- Cart system for multiple trades
+- Aggregated profit, cost, and weight
 
-To build all apps and packages, run the following command:
+### Capacity Simulation
+- Character level and vocation
+- Backpack simulation
+- Travel estimation
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### Rashid Tracker
+- Real-time NPC rotation
+- Timezone-aware (CET/CEST)
+- Map integration
 
-```sh
-cd my-turborepo
-turbo build
+### UI Features
+- Dark / Light theme
+- Multilingual support (i18n)
+- Responsive design
+
+---
+
+## Getting Started
+
+### Requirements
+
+- Node.js 20+
+- pnpm 9+
+- Docker (for backend E2E tests)
+- PostgreSQL (local or remote)
+
+---
+
+## Installation
+
+```bash
+pnpm install
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+## Running the Project
+
+### Run everything (recommended)
+
+```bash
+pnpm dev
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+### Run frontend only
 
-```sh
-turbo build --filter=docs
+```bash
+pnpm --filter web dev
 ```
 
-Without global `turbo`:
+Frontend: http://localhost:3000
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+---
+
+### Run backend only
+
+```bash
+pnpm --filter api dev
 ```
 
-### Develop
+API: http://localhost:3001  
+Swagger: http://localhost:3001/docs
 
-To develop all apps and packages, run the following command:
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## Environment Variables
 
-```sh
-cd my-turborepo
-turbo dev
+### Backend (`apps/api/.env`)
+
+```env
+DATABASE_URL=postgresql://user:password@host:5432/silkroad
+ALLOWED_ORIGIN=http://localhost:3000
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+### Frontend (`apps/web/.env.local`)
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## Testing
 
-```sh
-turbo dev --filter=web
+### Frontend
+
+```bash
+pnpm --filter web test
 ```
 
-Without global `turbo`:
+- Vitest
+- React Testing Library
 
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+---
+
+### Backend
+
+```bash
+pnpm --filter api test
+pnpm --filter api test:e2e
 ```
 
-### Remote Caching
+- Jest
+- Supertest
+- Testcontainers (Docker required)
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+---
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## Database
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
+```bash
+pnpm --filter api prisma db push
+pnpm --filter api prisma generate
+pnpm --filter api prisma migrate deploy
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+## Project Structure
+
+```
+turborepo/
+├── apps/
+│   ├── api/        # NestJS backend
+│   └── web/        # Next.js frontend
+├── packages/
+│   ├── eslint-config
+│   ├── typescript-config
+│   └── ui
+├── turbo.json
+├── pnpm-workspace.yaml
+└── package.json
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+---
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## Design Decisions
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+- Monorepo architecture for shared tooling and scalability
+- Client-side calculations for instant feedback
+- Backend focused on data retrieval and persistence
+- Business logic extracted into pure functions for testability
+- Custom i18n system for lightweight multilingual support
+- CSS variables used for theming instead of heavy styling frameworks
 
-```sh
-turbo link
-```
+---
 
-Without global `turbo`:
+## Notes
 
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
+- Frontend and backend are fully decoupled via REST API
+- TailwindCSS is included as a baseline but not used as the primary styling system
+- Implementation evolved beyond the original plan (Vite → Next.js)
 
-## Useful Links
+---
 
-Learn more about the power of Turborepo:
+## Documentation
 
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+This project was developed as part of a university final project.
+Some architectural decisions evolved during implementation and may differ from the initial proposal, reflecting practical improvements made during development.
+This documentation was generated with the assistance of AI and reviewed by the author.
