@@ -2,8 +2,8 @@
   "filterByNpc": "Filtrar por NPC",
   "clearFilter": "🗑️ Limpar filtro",
   "others": "⚪ Outros",
-  "selectAll": "☐ selecionar todos",
-  "deselectAll": "☑️ desmarcar todos",
+  "selectAll": "☐ todos",
+  "deselectAll": "☑️ nenhum",
   "selectItem": "Selecionar Item",
   "searchPlaceholder": "Buscar nome do item…",
   "npcLabel": "NPC",
@@ -66,5 +66,6 @@
   "footerNotAffiliated": "Este site não é afiliado nem endossado pela CipSoft.",
   "footerIsA": "é um jogo de RPG online massivo e gratuito desenvolvido e publicado pela",
   "footerAllContent": "Todo o conteúdo relacionado ao Tibia é ©",
-  "siteTagline": "Ferramenta Calculadora de Lucro do NPC-Market"
+  "siteTagline": "Ferramenta Calculadora de Lucro do NPC-Market",
+  "taskDeliverable": "Melhor vender no Market (item de task)"
 }

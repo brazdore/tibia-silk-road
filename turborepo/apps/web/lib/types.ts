@@ -42,14 +42,15 @@ export interface OfferWithRelations extends Offer {
 }
 
 export interface FlatOffer {
-    offerId: number;
-    itemId: number;
-    name: string;
-    weight: number;
-    npcPrice: number;
-    npcId: number;
-    npcName: string;
-    npcCity: string;
-    npcIconUrl: string | null;
-    iconUrl: string | null;
+  offerId: number;
+  itemId: number;
+  name: string;
+  weight: number;
+  npcPrice: number;
+  npcId: number;
+  npcName: string;
+  npcCity: string;
+  npcIconUrl: string | null;
+  iconUrl: string | null;
+  taskDeliverable: boolean;
 }
