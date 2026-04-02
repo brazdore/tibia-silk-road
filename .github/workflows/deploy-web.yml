@@ -40,10 +40,13 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 9.0.0
 
       - name: Enable Corepack
         run: corepack enable
+
+      - name: Show pnpm version
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -56,7 +59,7 @@ jobs:
           rm -rf .deploy/web
           mkdir -p .deploy/web/apps/web
 
-          pnpm --filter ./apps/web --prod deploy --legacy .deploy/web/apps/web
+          pnpm --filter ./apps/web --prod deploy .deploy/web/apps/web
 
           mkdir -p .deploy/web/apps/web/public
           if [ -d apps/web/public ]; then
