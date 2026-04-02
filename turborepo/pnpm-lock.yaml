@@ -144,6 +144,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@swc/helpers':
+        specifier: ^0.5.15
+        version: 0.5.15
       '@tailwindcss/postcss':
         specifier: ^4.2.2
         version: 4.2.2
