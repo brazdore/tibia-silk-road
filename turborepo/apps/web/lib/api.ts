@@ -7,7 +7,7 @@ const API_URL =
 
 async function apiFetch<T>(path: string): Promise<T> {
     const res = await fetch(`${API_URL}${path}`, {
-        next: { revalidate: 86400 }, // 24h cache
+        cache: "no-store",
     });
     if (!res.ok) throw new Error(`API error: ${res.status} ${path}`);
     return res.json() as Promise<T>;

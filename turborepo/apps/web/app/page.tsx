@@ -7,6 +7,8 @@ import PageHeader from "@/components/PageHeaders";
 
 import type { FlatOffer } from "@/lib/types";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   let flatOffers: FlatOffer[] = [];
 
