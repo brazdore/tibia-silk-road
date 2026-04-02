@@ -1,0 +1,111 @@
+name: Deploy API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "turborepo/apps/api/**"
+      - ".github/workflows/deploy-api.yml"
+
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    defaults:
+      run:
+        working-directory: turborepo
+
+    env:
+      AWS_REGION: sa-east-1
+      S3_BUCKET: tsr-codedeploy-revisions-581483106640-sa-east-1-an
+      CODEDEPLOY_APP: tsr-api
+      CODEDEPLOY_GROUP: tsr-api-prod
+      ARTIFACT_NAME: api-${{ github.sha }}.tar.gz
+      API_ENV_PRODUCTION: ${{ secrets.API_ENV_PRODUCTION }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Show pnpm version
+        run: pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Create API runtime env
+        run: |
+          if [ -z "${API_ENV_PRODUCTION}" ]; then
+            echo "API_ENV_PRODUCTION secret is required"
+            exit 1
+          fi
+
+          cat > apps/api/.env.production <<EOF
+          ${API_ENV_PRODUCTION}
+          EOF
+
+      - name: Build API
+        run: pnpm --filter ./apps/api build
+
+      - name: Prepare deploy folder
+        run: |
+          rm -rf .deploy/api
+          mkdir -p .deploy/api
+
+          cp -R apps/api/dist .deploy/api/dist
+          cp -R apps/api/prisma .deploy/api/prisma
+          cp apps/api/package.json .deploy/api/package.json
+          cp apps/api/.env.production .deploy/api/.env.production
+          cp apps/api/deployment/appspec.yml .deploy/api/appspec.yml
+          cp apps/api/deployment/ecosystem.config.cjs .deploy/api/ecosystem.config.cjs
+
+          mkdir -p .deploy/api/scripts
+          cp apps/api/deployment/scripts/* .deploy/api/scripts/
+
+      - name: Inspect deploy folder
+        run: |
+          find .deploy/api -maxdepth 4 | sort
+          test -f .deploy/api/appspec.yml
+          test -f .deploy/api/package.json
+          test -f .deploy/api/.env.production
+          test -f .deploy/api/dist/main.js
+          test -f .deploy/api/ecosystem.config.cjs
+
+      - name: Create tarball
+        run: |
+          cd .deploy/api
+          tar -czf ../${ARTIFACT_NAME} .
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5.1.1
+        with:
+          role-to-assume: arn:aws:iam::581483106640:role/GitHubActionsDeployRole-TSR
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload artifact to S3
+        run: aws s3 cp .deploy/${ARTIFACT_NAME} s3://${S3_BUCKET}/${ARTIFACT_NAME}
+
+      - name: Create deployment
+        run: |
+          aws deploy create-deployment \
+            --application-name "${CODEDEPLOY_APP}" \
+            --deployment-group-name "${CODEDEPLOY_GROUP}" \
+            --s3-location bucket=${S3_BUCKET},bundleType=tgz,key=${ARTIFACT_NAME}
