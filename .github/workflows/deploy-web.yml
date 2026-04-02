@@ -27,6 +27,7 @@ jobs:
       CODEDEPLOY_APP: tsr-web
       CODEDEPLOY_GROUP: tsr-web-prod
       ARTIFACT_NAME: web-${{ github.sha }}.tar.gz
+      WEB_API_URL: ${{ secrets.WEB_API_URL }}
 
     steps:
       - name: Checkout
@@ -51,6 +52,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Create web runtime env
+        run: |
+          if [ -z "${WEB_API_URL}" ]; then
+            echo "WEB_API_URL secret is required"
+            exit 1
+          fi
+
+          cat > apps/web/.env.production <<EOF
+          API_URL=${WEB_API_URL}
+          EOF
+
       - name: Build web
         run: pnpm --filter ./apps/web build
 
@@ -64,6 +76,10 @@ jobs:
           mkdir -p .deploy/web/apps/web/public
           if [ -d apps/web/public ]; then
             cp -R apps/web/public/. .deploy/web/apps/web/public/
+          fi
+
+          if [ -f apps/web/.env.production ]; then
+            cp apps/web/.env.production .deploy/web/apps/web/.env.production
           fi
 
           mkdir -p .deploy/web/apps/web/.next
@@ -83,6 +99,7 @@ jobs:
           find .deploy/web -maxdepth 4 | sort
           test -f .deploy/web/appspec.yml
           test -f .deploy/web/apps/web/package.json
+          test -f .deploy/web/apps/web/.env.production
           test -f .deploy/web/apps/web/.next/BUILD_ID
           test -f .deploy/web/ecosystem.config.cjs
 

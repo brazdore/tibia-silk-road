@@ -40,7 +40,8 @@ export default async function Page() {
         },
       ];
     });
-  } catch {
+  } catch (error) {
+    console.error("Failed to load trade calculator data", error);
     // API unreachable at build time — ISR revalidates once live
   }
 
