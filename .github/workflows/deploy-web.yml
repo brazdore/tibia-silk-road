@@ -89,7 +89,7 @@ jobs:
       - name: Create tarball
         run: |
           cd .deploy/web
-          tar -chzf ../${ARTIFACT_NAME} .
+          tar -czf ../${ARTIFACT_NAME} .
 
       - name: Verify extracted artifact runs on Linux
         run: |
