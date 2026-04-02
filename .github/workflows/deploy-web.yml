@@ -67,7 +67,10 @@ jobs:
           fi
 
           mkdir -p .deploy/web/apps/web/.next
-          cp -R apps/web/.next/. .deploy/web/apps/web/.next/
+          rsync -a \
+            --exclude 'standalone' \
+            --exclude 'cache' \
+            apps/web/.next/ .deploy/web/apps/web/.next/
 
           cp apps/web/deployment/appspec.yml .deploy/web/appspec.yml
           cp apps/web/deployment/ecosystem.config.cjs .deploy/web/ecosystem.config.cjs
