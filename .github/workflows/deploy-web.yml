@@ -51,32 +51,20 @@ jobs:
       - name: Build web
         run: pnpm --filter ./apps/web build
 
-      - name: Verify standalone runs on Linux
-        run: |
-          cd apps/web/.next/standalone
-          node apps/web/server.js &
-          SERVER_PID=$!
-          sleep 5
-          curl -I http://127.0.0.1:3000
-          kill $SERVER_PID
-
       - name: Prepare deploy folder
         run: |
           rm -rf .deploy/web
-          mkdir -p .deploy/web
+          mkdir -p .deploy/web/apps/web
 
-          # Flatten pnpm/Next symlinks so the artifact is self-contained on EC2.
-          cp -LR apps/web/.next/standalone/. .deploy/web/
+          pnpm --filter ./apps/web --prod deploy --legacy .deploy/web/apps/web
 
           mkdir -p .deploy/web/apps/web/public
           if [ -d apps/web/public ]; then
             cp -R apps/web/public/. .deploy/web/apps/web/public/
           fi
 
-          mkdir -p .deploy/web/apps/web/.next/static
-          if [ -d apps/web/.next/static ]; then
-            cp -R apps/web/.next/static/. .deploy/web/apps/web/.next/static/
-          fi
+          mkdir -p .deploy/web/apps/web/.next
+          cp -R apps/web/.next/. .deploy/web/apps/web/.next/
 
           cp apps/web/deployment/appspec.yml .deploy/web/appspec.yml
           cp apps/web/deployment/ecosystem.config.cjs .deploy/web/ecosystem.config.cjs
@@ -88,16 +76,17 @@ jobs:
         run: |
           find .deploy/web -maxdepth 4 | sort
           test -f .deploy/web/appspec.yml
-          test -f .deploy/web/apps/web/server.js
+          test -f .deploy/web/apps/web/package.json
+          test -f .deploy/web/apps/web/.next/BUILD_ID
           test -f .deploy/web/ecosystem.config.cjs
 
       - name: Verify packaged artifact runs on Linux
         run: |
-          cd .deploy/web
-          PORT=3100 node apps/web/server.js &
+          cd .deploy/web/apps/web
+          HOSTNAME=127.0.0.1 node node_modules/next/dist/bin/next start -p 3100 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID' EXIT
-          sleep 5
+          sleep 10
           curl -I http://127.0.0.1:3100
 
       - name: Create tarball
