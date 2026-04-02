@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd /srv/tsr-web-release
+RELEASE_DIR="/srv/tsr-web-release"
+APP_DIR="/srv/tsr-web"
 
-rm -rf /srv/tsr-web/*
-mkdir -p /srv/tsr-web
+mkdir -p "$APP_DIR"
 
-# Preserve symlinks and full standalone layout exactly
-cp -a .next/standalone/. /srv/tsr-web/
+find "$APP_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 
-mkdir -p /srv/tsr-web/.next
-cp -a .next/static /srv/tsr-web/.next/
-cp -a public /srv/tsr-web/ || true
-cp -a ecosystem.config.cjs /srv/tsr-web/
-cp -a .env.production /srv/tsr-web/.env
+shopt -s dotglob
+cp -R "$RELEASE_DIR"/* "$APP_DIR"/
+shopt -u dotglob
 
-chown -R ec2-user:ec2-user /srv/tsr-web
+chown -R ec2-user:ec2-user "$APP_DIR"
