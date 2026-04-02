@@ -58,9 +58,7 @@ jobs:
             exit 1
           fi
 
-          cat > apps/api/.env.production <<EOF
-          ${API_ENV_PRODUCTION}
-          EOF
+          printf '%s\n' "${API_ENV_PRODUCTION}" > apps/api/.env
 
       - name: Build API
         run: pnpm --filter ./apps/api build
@@ -73,7 +71,7 @@ jobs:
           cp -R apps/api/dist .deploy/api/dist
           cp -R apps/api/prisma .deploy/api/prisma
           cp apps/api/package.json .deploy/api/package.json
-          cp apps/api/.env.production .deploy/api/.env.production
+          cp apps/api/.env .deploy/api/.env
           cp apps/api/deployment/appspec.yml .deploy/api/appspec.yml
           cp apps/api/deployment/ecosystem.config.cjs .deploy/api/ecosystem.config.cjs
 
@@ -85,7 +83,7 @@ jobs:
           find .deploy/api -maxdepth 4 | sort
           test -f .deploy/api/appspec.yml
           test -f .deploy/api/package.json
-          test -f .deploy/api/.env.production
+          test -f .deploy/api/.env
           test -f .deploy/api/dist/main.js
           test -f .deploy/api/ecosystem.config.cjs
 
