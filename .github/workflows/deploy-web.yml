@@ -83,19 +83,22 @@ jobs:
           test -f .deploy/web/apps/web/.next/BUILD_ID
           test -f .deploy/web/ecosystem.config.cjs
 
-      - name: Verify packaged artifact runs on Linux
+      - name: Create tarball
         run: |
-          cd .deploy/web/apps/web
+          cd .deploy/web
+          tar -chzf ../${ARTIFACT_NAME} .
+
+      - name: Verify extracted artifact runs on Linux
+        run: |
+          rm -rf /tmp/tsr-web-smoke
+          mkdir -p /tmp/tsr-web-smoke
+          tar -xzf .deploy/${ARTIFACT_NAME} -C /tmp/tsr-web-smoke
+          cd /tmp/tsr-web-smoke/apps/web
           HOSTNAME=127.0.0.1 node node_modules/next/dist/bin/next start -p 3100 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID' EXIT
           sleep 10
           curl -I http://127.0.0.1:3100
-
-      - name: Create tarball
-        run: |
-          cd .deploy/web
-          tar -czf ../${ARTIFACT_NAME} .
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
