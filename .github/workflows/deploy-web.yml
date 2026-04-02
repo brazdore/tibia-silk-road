@@ -1,0 +1,107 @@
+name: Deploy Web
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "turborepo/apps/web/**"
+      - "turborepo/packages/**"
+      - ".github/workflows/deploy-web.yml"
+
+jobs:
+  deploy-web:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    defaults:
+      run:
+        working-directory: turborepo
+
+    env:
+      AWS_REGION: sa-east-1
+      S3_BUCKET: tsr-codedeploy-revisions-581483106640-sa-east-1-an
+      CODEDEPLOY_APP: tsr-web
+      CODEDEPLOY_GROUP: tsr-web-prod
+      ARTIFACT_NAME: web-${{ github.sha }}.tar.gz
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web
+        run: pnpm --filter ./apps/web build
+
+      - name: Verify standalone runs on Linux
+        run: |
+          cd apps/web/.next/standalone
+          node apps/web/server.js &
+          SERVER_PID=$!
+          sleep 5
+          curl -I http://127.0.0.1:3000
+          kill $SERVER_PID
+
+      - name: Prepare deploy folder
+        run: |
+          rm -rf .deploy/web
+          mkdir -p .deploy/web
+
+          cp -R apps/web/.next/standalone/. .deploy/web/
+
+          mkdir -p .deploy/web/apps/web/public
+          if [ -d apps/web/public ]; then
+            cp -R apps/web/public/. .deploy/web/apps/web/public/
+          fi
+
+          cp apps/web/deployment/appspec.yml .deploy/web/appspec.yml
+          cp apps/web/deployment/ecosystem.config.cjs .deploy/web/ecosystem.config.cjs
+
+          mkdir -p .deploy/web/scripts
+          cp apps/web/deployment/scripts/* .deploy/web/scripts/
+
+      - name: Inspect deploy folder
+        run: |
+          find .deploy/web -maxdepth 4 | sort
+          test -f .deploy/web/appspec.yml
+          test -f .deploy/web/apps/web/server.js
+          test -f .deploy/web/ecosystem.config.cjs
+
+      - name: Create tarball
+        run: |
+          cd .deploy/web
+          tar -czf ../${ARTIFACT_NAME} .
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::581483106640:role/GitHubActionsDeployRole-TSR
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload artifact to S3
+        run: aws s3 cp .deploy/${ARTIFACT_NAME} s3://${S3_BUCKET}/${ARTIFACT_NAME}
+
+      - name: Create deployment
+        run: |
+          aws deploy create-deployment \
+            --application-name "${CODEDEPLOY_APP}" \
+            --deployment-group-name "${CODEDEPLOY_GROUP}" \
+            --s3-location bucket=${S3_BUCKET},bundleType=tgz,key=${ARTIFACT_NAME}
