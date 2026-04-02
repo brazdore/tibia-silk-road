@@ -65,11 +65,17 @@ jobs:
           rm -rf .deploy/web
           mkdir -p .deploy/web
 
-          cp -R apps/web/.next/standalone/. .deploy/web/
+          # Flatten pnpm/Next symlinks so the artifact is self-contained on EC2.
+          cp -LR apps/web/.next/standalone/. .deploy/web/
 
           mkdir -p .deploy/web/apps/web/public
           if [ -d apps/web/public ]; then
             cp -R apps/web/public/. .deploy/web/apps/web/public/
+          fi
+
+          mkdir -p .deploy/web/apps/web/.next/static
+          if [ -d apps/web/.next/static ]; then
+            cp -R apps/web/.next/static/. .deploy/web/apps/web/.next/static/
           fi
 
           cp apps/web/deployment/appspec.yml .deploy/web/appspec.yml
@@ -84,6 +90,15 @@ jobs:
           test -f .deploy/web/appspec.yml
           test -f .deploy/web/apps/web/server.js
           test -f .deploy/web/ecosystem.config.cjs
+
+      - name: Verify packaged artifact runs on Linux
+        run: |
+          cd .deploy/web
+          PORT=3100 node apps/web/server.js &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 5
+          curl -I http://127.0.0.1:3100
 
       - name: Create tarball
         run: |

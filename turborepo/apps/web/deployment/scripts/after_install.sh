@@ -8,8 +8,6 @@ mkdir -p "$APP_DIR"
 
 find "$APP_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 
-shopt -s dotglob
-cp -R "$RELEASE_DIR"/* "$APP_DIR"/
-shopt -u dotglob
+cp -a "$RELEASE_DIR"/. "$APP_DIR"/
 
 chown -R ec2-user:ec2-user "$APP_DIR"
