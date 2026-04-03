@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 
@@ -26,4 +26,10 @@ async function bootstrap() {
   Logger.log(`Running on http://localhost:3001`, 'Bootstrap');
   Logger.log(`Swagger on http://localhost:3001/docs`, 'Bootstrap');
 }
-bootstrap();
+bootstrap().catch((error: unknown) => {
+  const message = error instanceof Error ? error.message : String(error);
+  const stack = error instanceof Error ? error.stack : undefined;
+
+  Logger.error(message, stack, 'Bootstrap');
+  process.exit(1);
+});

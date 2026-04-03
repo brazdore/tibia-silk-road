@@ -1,13 +1,57 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
+import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/database/prisma.service';
 import { setupTestDatabase, teardownTestDatabase } from './setup';
-import request = require('supertest');
+
+type RequestTarget = Parameters<typeof request>[0];
+
+interface OfferResponse {
+  id: number;
+  item_id: number;
+  npc_id: number;
+  price: number;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+function parseOffer(value: unknown): OfferResponse {
+  if (!isRecord(value)) {
+    throw new Error('Expected offer object');
+  }
+
+  if (
+    typeof value.id !== 'number' ||
+    typeof value.item_id !== 'number' ||
+    typeof value.npc_id !== 'number' ||
+    typeof value.price !== 'number'
+  ) {
+    throw new Error('Invalid offer payload');
+  }
+
+  return {
+    id: value.id,
+    item_id: value.item_id,
+    npc_id: value.npc_id,
+    price: value.price,
+  };
+}
+
+function parseOfferArray(value: unknown): OfferResponse[] {
+  if (!Array.isArray(value)) {
+    throw new Error('Expected offer array');
+  }
+
+  return value.map(parseOffer);
+}
 
 describe('Offers (e2e)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
+  let server: RequestTarget;
   let itemId: number;
   let npcId: number;
 
@@ -24,9 +68,9 @@ describe('Offers (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
 
+    server = app.getHttpServer() as RequestTarget;
     prisma = moduleFixture.get<PrismaService>(PrismaService);
 
-    // Seed dependencies first
     const item = await prisma.item.create({
       data: {
         name: 'Broadsword',
@@ -62,30 +106,38 @@ describe('Offers (e2e)', () => {
     await teardownTestDatabase();
   });
 
-  it('GET /offers → returns all offers', async () => {
-    const res = await request(app.getHttpServer()).get('/offers').expect(200);
-    expect(res.body).toHaveLength(2);
+  it('GET /offers returns all offers', async () => {
+    const res = await request(server).get('/offers').expect(200);
+    const body = parseOfferArray(res.body);
+
+    expect(body).toHaveLength(2);
   });
 
-  it('GET /offers?item_id= → returns offers for item', async () => {
-    const res = await request(app.getHttpServer())
+  it('GET /offers?item_id= returns offers for item', async () => {
+    const res = await request(server)
       .get(`/offers?item_id=${itemId}`)
       .expect(200);
-    expect(res.body).toHaveLength(2);
+    const body = parseOfferArray(res.body);
+
+    expect(body).toHaveLength(2);
   });
 
-  it('GET /offers?npc_id= → returns offers for npc', async () => {
-    const res = await request(app.getHttpServer())
+  it('GET /offers?npc_id= returns offers for npc', async () => {
+    const res = await request(server)
       .get(`/offers?npc_id=${npcId}`)
       .expect(200);
-    expect(res.body).toHaveLength(1);
+    const body = parseOfferArray(res.body);
+
+    expect(body).toHaveLength(1);
   });
 
-  it('GET /offers?item_id=&npc_id= → returns specific offer', async () => {
-    const res = await request(app.getHttpServer())
+  it('GET /offers?item_id=&npc_id= returns specific offer', async () => {
+    const res = await request(server)
       .get(`/offers?item_id=${itemId}&npc_id=${npcId}`)
       .expect(200);
-    expect(res.body).toHaveLength(1);
-    expect(res.body[0].price).toBe(100);
+    const body = parseOfferArray(res.body);
+
+    expect(body).toHaveLength(1);
+    expect(body.at(0)?.price).toBe(100);
   });
 });
