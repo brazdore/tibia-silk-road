@@ -67,5 +67,7 @@
   "footerIsA": "es un videojuego de rol multijugador masivo en línea, gratuito, desarrollado y publicado por",
   "footerAllContent": "Todo el contenido relacionado con Tibia es ©",
   "siteTagline": "Herramienta Calculadora de Ganancias del NPC-Market",
-  "taskDeliverable": "Mejor vender en Market (ítem de task)"
+  "taskDeliverable": "Mejor vender en Market (ítem de task)",
+  "freshStart": "✨ Empezar de nuevo",
+  "freshStartConfirm": "Esto borrará tu sesión actual de la calculadora. ¿Deseas continuar?"
 }

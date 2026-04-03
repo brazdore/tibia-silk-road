@@ -5,7 +5,8 @@ export const MARKET_FEE_MIN = 20;
 export const MARKET_FEE_MAX = 1_000_000;
 
 export function calcMarketFee(totalOffer: number): number {
-    return Math.min(Math.max(totalOffer * MARKET_FEE_RATE, MARKET_FEE_MIN), MARKET_FEE_MAX);
+  const rawFee = Math.ceil(totalOffer * MARKET_FEE_RATE);
+  return Math.min(Math.max(rawFee, MARKET_FEE_MIN), MARKET_FEE_MAX);
 }
 
 export function calcProfit(

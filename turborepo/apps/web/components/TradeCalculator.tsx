@@ -41,8 +41,8 @@ interface SavedCalculatorState {
   version: 1;
   search: string;
   selectedOfferId: number | null;
-  quantity: number;
-  marketPrice: number;
+  quantity: number | "";
+  marketPrice: number | "";
   includeMarketFee: boolean;
   cart: SavedCartEntry[];
   level: number;
@@ -127,8 +127,10 @@ export default function TradeCalculator({
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<FlatOffer | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [marketPrice, setMarketPrice] = useState(0);
+  const [quantity, setQuantity] = useState<number | "">(1);
+  const [marketPrice, setMarketPrice] = useState<number | "">("");
+  const quantityValue: number = quantity === "" ? 0 : quantity;
+  const marketPriceValue: number = marketPrice === "" ? 0 : marketPrice;
   const [includeMarketFee, setIncludeMarketFee] = useState(false);
   const [cart, setCart] = useState<CartEntry[]>([]);
   const [level, setLevel] = useState(100);
@@ -156,41 +158,48 @@ export default function TradeCalculator({
         return;
       }
 
-      const parsed = JSON.parse(raw) as Partial<SavedCalculatorState>;
+      const parsed: unknown = JSON.parse(raw);
+      const saved =
+        parsed && typeof parsed === "object"
+          ? (parsed as Partial<SavedCalculatorState>)
+          : {};
 
       const restoredNpcIds = new Set(
-        Array.isArray(parsed.selectedNpcIds)
-          ? parsed.selectedNpcIds.filter((id): id is number =>
+        Array.isArray(saved.selectedNpcIds)
+          ? saved.selectedNpcIds.filter((id): id is number =>
               Number.isFinite(id),
             )
           : [],
       );
 
       const restoredSelected =
-        typeof parsed.selectedOfferId === "number"
-          ? (offersById.get(parsed.selectedOfferId) ?? null)
+        typeof saved.selectedOfferId === "number"
+          ? (offersById.get(saved.selectedOfferId) ?? null)
           : null;
 
-      const restoredCart = Array.isArray(parsed.cart)
-        ? parsed.cart.flatMap((entry) => {
-            if (!entry || typeof entry.offerId !== "number") return [];
+      const restoredCart = Array.isArray(saved.cart)
+        ? saved.cart.flatMap((entry) => {
+            if (!entry || typeof entry !== "object") return [];
 
-            const offer = offersById.get(entry.offerId);
+            const maybeEntry = entry as Partial<SavedCartEntry>;
+            if (typeof maybeEntry.offerId !== "number") return [];
+
+            const offer = offersById.get(maybeEntry.offerId);
             if (!offer) return [];
 
-            const qty = Math.max(1, Number(entry.quantity) || 1);
-            const price = Math.max(0, Number(entry.marketPrice) || 0);
-            const withFee = Boolean(entry.includeMarketFee);
+            const qty = Math.max(1, Number(maybeEntry.quantity) || 1);
+            const price = Math.max(0, Number(maybeEntry.marketPrice) || 0);
+            const withFee = Boolean(maybeEntry.includeMarketFee);
             const id =
-              typeof entry.id === "number"
-                ? entry.id
+              typeof maybeEntry.id === "number"
+                ? maybeEntry.id
                 : Date.now() + Math.floor(Math.random() * 1000);
 
             return [createCartEntry(offer, qty, price, withFee, id)];
           })
         : [];
 
-      setSearch(typeof parsed.search === "string" ? parsed.search : "");
+      setSearch(typeof saved.search === "string" ? saved.search : "");
       setSelected(
         restoredSelected &&
           (restoredNpcIds.size === 0 ||
@@ -199,26 +208,34 @@ export default function TradeCalculator({
           : null,
       );
       setShowDropdown(false);
-      setQuantity(Math.max(1, Number(parsed.quantity) || 1));
-      setMarketPrice(Math.max(0, Number(parsed.marketPrice) || 0));
-      setIncludeMarketFee(Boolean(parsed.includeMarketFee));
+      setQuantity(
+        saved.quantity === "" ? "" : Math.max(1, Number(saved.quantity) || 1),
+      );
+
+      setMarketPrice(
+        saved.marketPrice === ""
+          ? ""
+          : Math.max(0, Number(saved.marketPrice) || 0),
+      );
+
+      setIncludeMarketFee(Boolean(saved.includeMarketFee));
       setCart(restoredCart);
 
       if (
-        parsed.vocation === "Knight/Monk" ||
-        parsed.vocation === "Paladin" ||
-        parsed.vocation === "Sorcerer/Druid" ||
-        parsed.vocation === "Rookstayer"
+        saved.vocation === "Knight/Monk" ||
+        saved.vocation === "Paladin" ||
+        saved.vocation === "Sorcerer/Druid" ||
+        saved.vocation === "Rookstayer"
       ) {
-        setVocation(parsed.vocation);
+        setVocation(saved.vocation);
       }
 
-      setLevel(Math.max(1, Number(parsed.level) || 100));
+      setLevel(Math.max(1, Number(saved.level) || 100));
       setUseBackpack(
-        typeof parsed.useBackpack === "boolean" ? parsed.useBackpack : true,
+        typeof saved.useBackpack === "boolean" ? saved.useBackpack : true,
       );
-      setBpSlots(Math.max(1, Number(parsed.bpSlots) || 20));
-      setBpWeight(Math.max(0, Number(parsed.bpWeight) || 18));
+      setBpSlots(Math.max(1, Number(saved.bpSlots) || 20));
+      setBpWeight(Math.max(0, Number(saved.bpWeight) || 18));
       setSelectedNpcIds(restoredNpcIds);
     } catch {
       window.localStorage.removeItem(STORAGE_KEY);
@@ -372,14 +389,15 @@ export default function TradeCalculator({
   );
 
   const result = useMemo<CalcResult | null>(() => {
-    if (!selected || quantity <= 0 || marketPrice <= 0) return null;
+    if (!selected || quantityValue <= 0 || marketPriceValue <= 0) return null;
+
     return calcProfit(
       selected.npcPrice,
-      marketPrice,
-      quantity,
+      marketPriceValue,
+      quantityValue,
       includeMarketFee,
     );
-  }, [selected, quantity, marketPrice, includeMarketFee]);
+  }, [selected, quantityValue, marketPriceValue, includeMarketFee]);
 
   const bulkSummary = useMemo(() => {
     if (cart.length === 0) return null;
@@ -430,7 +448,7 @@ export default function TradeCalculator({
     };
   }, [bulkSummary, level, vocation, useBackpack, bpSlots, bpWeight]);
 
-  const singleWeight = selected ? selected.weight * quantity : 0;
+  const singleWeight = selected ? selected.weight * quantityValue : 0;
   const singleProfitPerOz =
     result && singleWeight > 0 ? result.netProfit / singleWeight : null;
   const bulkProfitPerOz =
@@ -441,7 +459,7 @@ export default function TradeCalculator({
   function handleSelect(offer: FlatOffer) {
     setSelected(offer);
     setSearch(offer.name);
-    setMarketPrice(0);
+    setMarketPrice("");
     setQuantity(1);
     setShowDropdown(false);
   }
@@ -453,16 +471,64 @@ export default function TradeCalculator({
       ...prev,
       createCartEntry(
         selected,
-        quantity,
-        marketPrice,
+        quantityValue,
+        marketPriceValue,
         includeMarketFee,
         Date.now(),
       ),
     ]);
   }
 
+  function handleFreshStart() {
+    if (!window.confirm(t("freshStartConfirm"))) return;
+
+    window.localStorage.removeItem(STORAGE_KEY);
+
+    setSearch("");
+    setSelected(null);
+    setShowDropdown(false);
+    setQuantity(1);
+    setMarketPrice("");
+    setIncludeMarketFee(false);
+    setCart([]);
+    setLevel(100);
+    setVocation("Knight/Monk");
+    setUseBackpack(true);
+    setBpSlots(20);
+    setBpWeight(18);
+    setSelectedNpcIds(new Set());
+  }
+
   return (
     <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "0.75rem",
+        }}
+      >
+        <button
+          onClick={handleFreshStart}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+            background:
+              "linear-gradient(180deg, rgba(var(--negative), 0.12), rgba(var(--negative), 0.06))",
+            border: "1px solid rgba(var(--negative), 0.28)",
+            borderRadius: "999px",
+            padding: "0.38rem 0.85rem",
+            cursor: "pointer",
+            fontSize: "0.78rem",
+            color: "rgb(var(--negative))",
+            fontWeight: 600,
+            boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
+          }}
+        >
+          {t("freshStart")}
+        </button>
+      </div>
       {/* ── NPC Filter ── */}
       <div style={card}>
         <div
@@ -862,9 +928,15 @@ export default function TradeCalculator({
                 value={quantity}
                 style={inputStyle}
                 suppressHydrationWarning
-                onChange={(e) =>
-                  setQuantity(Math.max(1, parseInt(e.target.value) || 1))
-                }
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  setQuantity(
+                    raw === "" ? "" : Math.max(1, parseInt(raw, 10) || 1),
+                  );
+                }}
+                onBlur={() => {
+                  if (quantity === "") setQuantity(1);
+                }}
               />
             </label>
             <label style={labelStyle}>
@@ -875,9 +947,12 @@ export default function TradeCalculator({
                 value={marketPrice}
                 style={inputStyle}
                 suppressHydrationWarning
-                onChange={(e) =>
-                  setMarketPrice(Math.max(0, parseInt(e.target.value) || 0))
-                }
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  setMarketPrice(
+                    raw === "" ? "" : Math.max(0, parseInt(raw, 10) || 0),
+                  );
+                }}
               />
             </label>
             <label
@@ -1336,7 +1411,7 @@ export default function TradeCalculator({
                   {t("backpacksNeeded")}
                 </span>
                 <span>
-                  {useBackpack ? capacitySummary.bpAmountNeeded : "Disabled"}
+                  {useBackpack ? capacitySummary.bpAmountNeeded : t("disabled")}
                 </span>
                 <span style={{ color: "rgb(var(--muted))" }}>
                   {t("totalBackpacksWeight")}
@@ -1344,7 +1419,7 @@ export default function TradeCalculator({
                 <span>
                   {useBackpack
                     ? formatWeight(capacitySummary.totalBpsWeight)
-                    : "Disabled"}
+                    : t("disabled")}
                 </span>
                 <span style={{ color: "rgb(var(--muted))" }}>
                   {t("totalWeightWithBackpacks")}
@@ -1352,7 +1427,7 @@ export default function TradeCalculator({
                 <span>
                   {useBackpack
                     ? formatWeight(capacitySummary.totalWeightWithBps)
-                    : "Disabled"}
+                    : t("disabled")}
                 </span>
                 <span style={{ color: "rgb(var(--muted))" }}>
                   {t("travelsWithBackpacks")}

@@ -67,5 +67,7 @@
   "footerIsA": "to darmowa gra MMORPG stworzona i wydana przez",
   "footerAllContent": "Wszelkie treści związane z Tibią są ©",
   "siteTagline": "Kalkulator Zysku NPC-Market",
-  "taskDeliverable": "Lepiej sprzedać na Market (przedmiot taskowy)"
+  "taskDeliverable": "Lepiej sprzedać na Market (przedmiot taskowy)",
+  "freshStart": "✨ Zacznij od nowa",
+  "freshStartConfirm": "To wyczyści bieżącą sesję kalkulatora. Czy chcesz kontynuować?"
 }

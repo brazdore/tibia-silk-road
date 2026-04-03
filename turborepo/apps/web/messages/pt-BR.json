@@ -67,5 +67,7 @@
   "footerIsA": "é um jogo de RPG online massivo e gratuito desenvolvido e publicado pela",
   "footerAllContent": "Todo o conteúdo relacionado ao Tibia é ©",
   "siteTagline": "Ferramenta Calculadora de Lucro do NPC-Market",
-  "taskDeliverable": "Melhor vender no Market (item de task)"
+  "taskDeliverable": "Melhor vender no Market (item de task)",
+  "freshStart": "✨ Recomeçar",
+  "freshStartConfirm": "Isso vai limpar sua sessão atual da calculadora. Deseja continuar?"
 }
