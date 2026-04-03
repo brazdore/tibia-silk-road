@@ -1,5 +1,13 @@
-﻿<p align="center">
-  <img src="./turborepo/apps/web/public/logo-tsr-beeg.png" alt="Tibia Silk Road" width="320" />
+<p align="center">
+  <a href="https://tibia-silk-road.com/">
+    <img src="./turborepo/apps/web/public/logo-tsr-beeg.png" alt="Tibia Silk Road" width="320" />
+  </a>
+</p>
+
+<p align="center">
+  <sub>
+    Art by <a href="https://www.linkedin.com/in/mateus-dorneles/">Mateus Dorneles</a> &nbsp;�&nbsp; <a href="https://www.instagram.com/led.art.br/">@led.art.br</a>
+  </sub>
 </p>
 
 <h1 align="center">Tibia Silk Road</h1>
@@ -22,9 +30,12 @@
 
 ## Overview
 
-Tibia Silk Road is a full-stack web platform built to evaluate the economic and logistical viability of reselling Tibia items to NPCs. It combines a production web frontend, a production REST API, PostgreSQL-backed trade data, and an AWS-based deployment pipeline.
+Tibia Silk Road is a full-stack web platform built to evaluate the economic and logistical viability of reselling Tibia
+items to NPCs. It combines a production web frontend, a production REST API, PostgreSQL-backed trade data, and an
+AWS-based deployment pipeline.
 
-The repository contains the current production monorepo, supporting SQL/database assets, AWS-related static resources, and an older proof-of-concept application preserved for reference.
+The repository contains the current production monorepo, supporting SQL/database assets, AWS-related static resources,
+and an older proof-of-concept application preserved for reference.
 
 At a high level, the platform helps answer questions like:
 
@@ -50,14 +61,15 @@ The production environment is live and fully wired end to end.
 
 ### Public Endpoints
 
-| Surface | URL | Notes |
-| --- | --- | --- |
-| Main frontend | [https://tibia-silk-road.com/](https://tibia-silk-road.com/) | Primary production entrypoint |
-| Frontend alias | [https://app.tibia-silk-road.com/](https://app.tibia-silk-road.com/) | Alternate app hostname |
-| API docs | [https://api.tibia-silk-road.com/docs#](https://api.tibia-silk-road.com/docs#) | Public Swagger UI |
+| Surface                 | URL                                                                              | Notes                                           |
+|-------------------------|----------------------------------------------------------------------------------|-------------------------------------------------|
+| Main frontend           | [https://tibia-silk-road.com/](https://tibia-silk-road.com/)                     | Primary production entrypoint                   |
+| Frontend alias          | [https://app.tibia-silk-road.com/](https://app.tibia-silk-road.com/)             | Alternate app hostname                          |
+| API docs                | [https://api.tibia-silk-road.com/docs#](https://api.tibia-silk-road.com/docs#)   | Public Swagger UI                               |
 | CloudFront distribution | [https://d11inahteu3mwm.cloudfront.net/](https://d11inahteu3mwm.cloudfront.net/) | Raw CloudFront DNS / edge distribution hostname |
 
-> The custom domains above are the canonical production entrypoints. The CloudFront hostname is useful as a direct AWS distribution endpoint for validation and edge-level access.
+> The custom domains above are the canonical production entrypoints. The CloudFront hostname is useful as a direct AWS
+> distribution endpoint for validation and edge-level access.
 
 ---
 
@@ -87,11 +99,11 @@ The production environment is live and fully wired end to end.
 
 ### Core Business Entities
 
-| Entity | Description |
-| --- | --- |
-| Items | Tibia items with metadata such as weight, type, icons, and task-deliverable status |
-| NPCs | Buyer NPCs, including quest requirements and icon metadata |
-| Offers | Buy-price relations connecting items and NPCs |
+| Entity | Description                                                                        |
+|--------|------------------------------------------------------------------------------------|
+| Items  | Tibia items with metadata such as weight, type, icons, and task-deliverable status |
+| NPCs   | Buyer NPCs, including quest requirements and icon metadata                         |
+| Offers | Buy-price relations connecting items and NPCs                                      |
 
 ---
 
@@ -117,16 +129,16 @@ The production environment is live and fully wired end to end.
 
 ### Monorepo Packages
 
-| Path | Role |
-| --- | --- |
-| `turborepo/apps/web` | Production frontend built with Next.js 16 and React 19 |
-| `turborepo/apps/api` | Production backend built with NestJS and Prisma |
-| `turborepo/packages/ui` | Shared UI package |
-| `turborepo/packages/eslint-config` | Shared lint rules |
-| `turborepo/packages/typescript-config` | Shared TypeScript presets |
-| `database/` | Versioned SQL scripts used to create and evolve the dataset |
-| `aws/s3_bucket/` | Static files and icon assets prepared for AWS-hosted delivery |
-| `poc/` | Legacy proof-of-concept implementation |
+| Path                                   | Role                                                          |
+|----------------------------------------|---------------------------------------------------------------|
+| `turborepo/apps/web`                   | Production frontend built with Next.js 16 and React 19        |
+| `turborepo/apps/api`                   | Production backend built with NestJS and Prisma               |
+| `turborepo/packages/ui`                | Shared UI package                                             |
+| `turborepo/packages/eslint-config`     | Shared lint rules                                             |
+| `turborepo/packages/typescript-config` | Shared TypeScript presets                                     |
+| `database/`                            | Versioned SQL scripts used to create and evolve the dataset   |
+| `aws/s3_bucket/`                       | Static files and icon assets prepared for AWS-hosted delivery |
+| `poc/`                                 | Legacy proof-of-concept implementation                        |
 
 ---
 
@@ -171,7 +183,8 @@ The production environment is live and fully wired end to end.
 
 ## Architecture
 
-The production topology is centered around host-based routing through an HTTPS load balancer, with separate web and API runtimes behind Nginx and a PostgreSQL database behind the API.
+The production topology is centered around host-based routing through an HTTPS load balancer, with separate web and API
+runtimes behind Nginx and a PostgreSQL database behind the API.
 
 ```mermaid
 flowchart LR
@@ -203,11 +216,11 @@ flowchart LR
 
 ### Host Routing
 
-| Host | Destination |
-| --- | --- |
-| `tibia-silk-road.com` | Web frontend |
+| Host                      | Destination  |
+|---------------------------|--------------|
+| `tibia-silk-road.com`     | Web frontend |
 | `app.tibia-silk-road.com` | Web frontend |
-| `api.tibia-silk-road.com` | API backend |
+| `api.tibia-silk-road.com` | API backend  |
 
 ---
 
@@ -281,7 +294,8 @@ This is useful for:
 - checking edge/caching behavior independently of the custom domains
 - confirming distribution reachability during rollout or DNS work
 
-The main public experience, however, should be considered the custom-domain deployment served through the production DNS entries.
+The main public experience, however, should be considered the custom-domain deployment served through the production DNS
+entries.
 
 ---
 
@@ -345,7 +359,8 @@ pnpm --filter api test:e2e
 
 ### Web
 
-The web app expects a production API URL during deployment and uses environment-driven configuration to point the frontend to the backend.
+The web app expects a production API URL during deployment and uses environment-driven configuration to point the
+frontend to the backend.
 
 Relevant production workflow input:
 
@@ -373,7 +388,8 @@ For the exact local-development expectations, see the app-level READMEs:
 
 ## Data and Database Assets
 
-The repository includes a dedicated `database/` directory with versioned SQL files that cover schema creation, seed data, and subsequent adjustments to the domain model.
+The repository includes a dedicated `database/` directory with versioned SQL files that cover schema creation, seed
+data, and subsequent adjustments to the domain model.
 
 Examples include:
 
@@ -384,7 +400,8 @@ Examples include:
 - trade-data seeding
 - deliverable and weight updates
 
-The API itself uses Prisma as the runtime data-access layer, while the repository preserves raw SQL assets for broader project and infrastructure workflows.
+The API itself uses Prisma as the runtime data-access layer, while the repository preserves raw SQL assets for broader
+project and infrastructure workflows.
 
 ---
 
@@ -392,17 +409,20 @@ The API itself uses Prisma as the runtime data-access layer, while the repositor
 
 ### `aws/`
 
-Contains AWS-related static content, including a large collection of item and NPC icon assets prepared for bucket-based hosting and delivery.
+Contains AWS-related static content, including a large collection of item and NPC icon assets prepared for bucket-based
+hosting and delivery.
 
 ### `poc/`
 
-Contains an earlier proof-of-concept implementation built before the current production monorepo architecture settled around Next.js plus NestJS. It remains useful for historical reference, design comparison, and experimentation.
+Contains an earlier proof-of-concept implementation built before the current production monorepo architecture settled
+around Next.js plus NestJS. It remains useful for historical reference, design comparison, and experimentation.
 
 ---
 
 ## Why This Repository Matters
 
-This is not just a small frontend for a school project. In its current form, the repository documents and powers a real deployed full-stack system with:
+This is not just a small frontend for a school project. In its current form, the repository documents and powers a real
+deployed full-stack system with:
 
 - a public production frontend
 - a public API documentation surface
@@ -417,5 +437,8 @@ It is both a product repository and an operational record of how the platform is
 
 ## Disclaimer
 
-Tibia is a trademark and product of CipSoft GmbH. This repository is an unofficial fan-made utility and is not affiliated with, endorsed by, or maintained by CipSoft.
+Tibia is a trademark and product of CipSoft GmbH. This repository is an unofficial fan-made utility and is not
+affiliated with, endorsed by, or maintained by CipSoft.
 
+Parts of this repository documentation were drafted with AI assistance and then reviewed, edited, and curated by the
+author.
