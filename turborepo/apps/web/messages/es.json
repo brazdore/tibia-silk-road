@@ -69,5 +69,6 @@
   "siteTagline": "Herramienta Calculadora de Ganancias del NPC-Market",
   "taskDeliverable": "Mejor vender en Market (ítem de task)",
   "freshStart": "✨ Empezar de nuevo",
-  "freshStartConfirm": "Esto borrará tu sesión actual de la calculadora. ¿Deseas continuar?"
+  "freshStartConfirm": "Esto borrará tu sesión actual de la calculadora. ¿Deseas continuar?",
+  "footerMaintainedBy": "Este sitio fue creado y es mantenido por"
 }

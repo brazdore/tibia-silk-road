@@ -69,5 +69,6 @@
   "siteTagline": "Kalkulator Zysku NPC-Market",
   "taskDeliverable": "Lepiej sprzedać na Market (przedmiot taskowy)",
   "freshStart": "✨ Zacznij od nowa",
-  "freshStartConfirm": "To wyczyści bieżącą sesję kalkulatora. Czy chcesz kontynuować?"
+  "freshStartConfirm": "To wyczyści bieżącą sesję kalkulatora. Czy chcesz kontynuować?",
+  "footerMaintainedBy": "Ta strona została stworzona i jest utrzymywana przez"
 }

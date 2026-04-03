@@ -69,5 +69,6 @@
   "siteTagline": "NPC-Market Profit Calculator Tool",
   "taskDeliverable": "Better sold on Market (Task item)",
   "freshStart": "✨ Fresh start",
-  "freshStartConfirm": "This will clear your current calculator session. Continue?"
+  "freshStartConfirm": "This will clear your current calculator session. Continue?",
+  "footerMaintainedBy": "This site was created and is maintained by"
 }

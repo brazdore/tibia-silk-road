@@ -66,8 +66,9 @@
   "footerNotAffiliated": "Este site não é afiliado nem endossado pela CipSoft.",
   "footerIsA": "é um jogo de RPG online massivo e gratuito desenvolvido e publicado pela",
   "footerAllContent": "Todo o conteúdo relacionado ao Tibia é ©",
-  "siteTagline": "Ferramenta Calculadora de Lucro do NPC-Market",
+  "siteTagline": "Ferramenta Calculadora de Lucro NPC-Market",
   "taskDeliverable": "Melhor vender no Market (item de task)",
   "freshStart": "✨ Recomeçar",
-  "freshStartConfirm": "Isso vai limpar sua sessão atual da calculadora. Deseja continuar?"
+  "freshStartConfirm": "Isso vai limpar sua sessão atual da calculadora. Deseja continuar?",
+  "footerMaintainedBy": "Este site foi criado e é mantido por"
 }
