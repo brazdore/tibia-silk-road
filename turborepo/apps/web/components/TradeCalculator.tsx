@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { FlatOffer } from "@/lib/types";
 import {
   calcCapacity,
@@ -94,6 +94,7 @@ export default function TradeCalculator({
   const [bpWeight, setBpWeight] = useState(18);
   const [selectedNpcIds, setSelectedNpcIds] = useState<Set<number>>(new Set());
   const t = useTranslation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const npcs = useMemo(() => {
     const seen = new Map<
@@ -110,6 +111,20 @@ export default function TradeCalculator({
     }
     return Array.from(seen.values());
   }, [flatOffers]);
+
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, []);
 
   const factionNpcNames = new Set<string>(
     FACTIONS.flatMap((f) => [...f.npcNames]),
@@ -480,7 +495,7 @@ export default function TradeCalculator({
         <h2 style={{ marginBottom: "0.75rem", fontSize: "1rem" }}>
           {t("selectItem")}
         </h2>
-        <div style={{ position: "relative" }}>
+        <div ref={dropdownRef} style={{ position: "relative" }}>
           <input
             type="text"
             placeholder={t("searchPlaceholder")}
@@ -493,7 +508,14 @@ export default function TradeCalculator({
               setSelected(null);
             }}
             onFocus={() => setShowDropdown(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") {
+                setShowDropdown(false);
+                e.currentTarget.blur();
+              }
+            }}
           />
+
           {showDropdown && filtered.length > 0 && (
             <ul
               style={{
@@ -552,7 +574,7 @@ export default function TradeCalculator({
                         title={t("taskDeliverable")}
                         style={{
                           fontSize: "0.7rem",
-                          color: 'rgb(var(--accent-gold))',
+                          color: "rgb(var(--accent-gold))",
                           lineHeight: 1,
                         }}
                       >
@@ -613,7 +635,7 @@ export default function TradeCalculator({
                     title={t("taskDeliverable")}
                     style={{
                       fontSize: "0.7rem",
-                      color: 'rgb(var(--accent-gold))',
+                      color: "rgb(var(--accent-gold))",
                       lineHeight: 1,
                     }}
                   >
@@ -905,7 +927,7 @@ export default function TradeCalculator({
                             title={t("taskDeliverable")}
                             style={{
                               fontSize: "0.7rem",
-                              color: 'rgb(var(--accent-gold))',
+                              color: "rgb(var(--accent-gold))",
                               lineHeight: 1,
                             }}
                           >
