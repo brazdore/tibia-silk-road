@@ -67,5 +67,8 @@
   "footerIsA": "is a free massively multiplayer online role-playing game developed and published by",
   "footerAllContent": "All Tibia-related content is ©",
   "siteTagline": "NPC-Market Profit Calculator Tool",
-  "taskDeliverable": "Better sold on Market (Task item)"
+  "taskDeliverable": "Better sold on Market (Task item)",
+  "freshStart": "✨ Fresh start",
+  "freshStartConfirm": "This will clear your current calculator session. Continue?",
+  "footerMaintainedBy": "This site was created and is maintained by"
 }

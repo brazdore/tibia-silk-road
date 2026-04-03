@@ -9,9 +9,14 @@ on:
       - "turborepo/packages/**"
       - ".github/workflows/deploy-web.yml"
 
+concurrency:
+  group: deploy-web-prod
+  cancel-in-progress: true
+
 jobs:
   deploy-web:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     permissions:
       id-token: write
@@ -37,6 +42,8 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 22
+          cache: pnpm
+          cache-dependency-path: turborepo/pnpm-lock.yaml
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -51,6 +58,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Run lint
+        run: pnpm --filter ./apps/web lint
+
+      - name: Run typecheck
+        run: pnpm --filter ./apps/web check-types
+
+      - name: Execute tests
+        run: pnpm --filter ./apps/web test:run
 
       - name: Create web runtime env
         run: |
