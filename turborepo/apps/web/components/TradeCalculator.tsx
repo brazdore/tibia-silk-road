@@ -25,7 +25,51 @@ interface CartEntry {
   offer: FlatOffer;
   quantity: number;
   marketPrice: number;
+  includeMarketFee: boolean;
   result: CalcResult;
+}
+
+interface SavedCartEntry {
+  id: number;
+  offerId: number;
+  quantity: number;
+  marketPrice: number;
+  includeMarketFee: boolean;
+}
+
+interface SavedCalculatorState {
+  version: 1;
+  search: string;
+  selectedOfferId: number | null;
+  quantity: number;
+  marketPrice: number;
+  includeMarketFee: boolean;
+  cart: SavedCartEntry[];
+  level: number;
+  vocation: Vocation;
+  useBackpack: boolean;
+  bpSlots: number;
+  bpWeight: number;
+  selectedNpcIds: number[];
+}
+
+const STORAGE_KEY = "tsr-trade-calculator-v1";
+
+function createCartEntry(
+  offer: FlatOffer,
+  quantity: number,
+  marketPrice: number,
+  includeMarketFee: boolean,
+  id = Date.now(),
+): CartEntry {
+  return {
+    id,
+    offer,
+    quantity,
+    marketPrice,
+    includeMarketFee,
+    result: calcProfit(offer.npcPrice, marketPrice, quantity, includeMarketFee),
+  };
 }
 
 const FACTIONS = [
@@ -95,6 +139,135 @@ export default function TradeCalculator({
   const [selectedNpcIds, setSelectedNpcIds] = useState<Set<number>>(new Set());
   const t = useTranslation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [hasRestoredState, setHasRestoredState] = useState(false);
+
+  const offersById = useMemo(
+    () => new Map(flatOffers.map((offer) => [offer.offerId, offer])),
+    [flatOffers],
+  );
+
+  useEffect(() => {
+    if (hasRestoredState) return;
+
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        setHasRestoredState(true);
+        return;
+      }
+
+      const parsed = JSON.parse(raw) as Partial<SavedCalculatorState>;
+
+      const restoredNpcIds = new Set(
+        Array.isArray(parsed.selectedNpcIds)
+          ? parsed.selectedNpcIds.filter((id): id is number =>
+              Number.isFinite(id),
+            )
+          : [],
+      );
+
+      const restoredSelected =
+        typeof parsed.selectedOfferId === "number"
+          ? (offersById.get(parsed.selectedOfferId) ?? null)
+          : null;
+
+      const restoredCart = Array.isArray(parsed.cart)
+        ? parsed.cart.flatMap((entry) => {
+            if (!entry || typeof entry.offerId !== "number") return [];
+
+            const offer = offersById.get(entry.offerId);
+            if (!offer) return [];
+
+            const qty = Math.max(1, Number(entry.quantity) || 1);
+            const price = Math.max(0, Number(entry.marketPrice) || 0);
+            const withFee = Boolean(entry.includeMarketFee);
+            const id =
+              typeof entry.id === "number"
+                ? entry.id
+                : Date.now() + Math.floor(Math.random() * 1000);
+
+            return [createCartEntry(offer, qty, price, withFee, id)];
+          })
+        : [];
+
+      setSearch(typeof parsed.search === "string" ? parsed.search : "");
+      setSelected(
+        restoredSelected &&
+          (restoredNpcIds.size === 0 ||
+            restoredNpcIds.has(restoredSelected.npcId))
+          ? restoredSelected
+          : null,
+      );
+      setShowDropdown(false);
+      setQuantity(Math.max(1, Number(parsed.quantity) || 1));
+      setMarketPrice(Math.max(0, Number(parsed.marketPrice) || 0));
+      setIncludeMarketFee(Boolean(parsed.includeMarketFee));
+      setCart(restoredCart);
+
+      if (
+        parsed.vocation === "Knight/Monk" ||
+        parsed.vocation === "Paladin" ||
+        parsed.vocation === "Sorcerer/Druid" ||
+        parsed.vocation === "Rookstayer"
+      ) {
+        setVocation(parsed.vocation);
+      }
+
+      setLevel(Math.max(1, Number(parsed.level) || 100));
+      setUseBackpack(
+        typeof parsed.useBackpack === "boolean" ? parsed.useBackpack : true,
+      );
+      setBpSlots(Math.max(1, Number(parsed.bpSlots) || 20));
+      setBpWeight(Math.max(0, Number(parsed.bpWeight) || 18));
+      setSelectedNpcIds(restoredNpcIds);
+    } catch {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } finally {
+      setHasRestoredState(true);
+    }
+  }, [hasRestoredState, offersById]);
+
+  useEffect(() => {
+    if (!hasRestoredState) return;
+
+    const payload: SavedCalculatorState = {
+      version: 1,
+      search,
+      selectedOfferId: selected?.offerId ?? null,
+      quantity,
+      marketPrice,
+      includeMarketFee,
+      cart: cart.map((entry) => ({
+        id: entry.id,
+        offerId: entry.offer.offerId,
+        quantity: entry.quantity,
+        marketPrice: entry.marketPrice,
+        includeMarketFee: entry.includeMarketFee,
+      })),
+      level,
+      vocation,
+      useBackpack,
+      bpSlots,
+      bpWeight,
+      selectedNpcIds: Array.from(selectedNpcIds),
+    };
+
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  }, [
+    hasRestoredState,
+    search,
+    selected,
+    quantity,
+    marketPrice,
+    includeMarketFee,
+    cart,
+    level,
+    vocation,
+    useBackpack,
+    bpSlots,
+    bpWeight,
+    selectedNpcIds,
+  ]);
 
   const npcs = useMemo(() => {
     const seen = new Map<
@@ -275,9 +448,16 @@ export default function TradeCalculator({
 
   function handleAddToCart() {
     if (!selected || !result) return;
+
     setCart((prev) => [
       ...prev,
-      { id: Date.now(), offer: selected, quantity, marketPrice, result },
+      createCartEntry(
+        selected,
+        quantity,
+        marketPrice,
+        includeMarketFee,
+        Date.now(),
+      ),
     ]);
   }
 
