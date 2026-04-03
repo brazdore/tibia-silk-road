@@ -6,7 +6,7 @@
 
 <p align="center">
   <sub>
-    Art by <a href="https://www.linkedin.com/in/mateus-dorneles/">Mateus Dorneles</a> &nbsp;�&nbsp; <a href="https://www.instagram.com/led.art.br/">@led.art.br</a>
+    Art by <a href="https://www.linkedin.com/in/mateus-dorneles/">Mateus Dorneles</a> ◆ <a href="https://www.instagram.com/led.art.br/">@led.art.br</a>
   </sub>
 </p>
 
